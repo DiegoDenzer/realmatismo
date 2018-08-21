@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Atletas|Realmatismo Fc {% endblock %}
+{% block main %}
+    {% for atleta in atletas %}
+        <a href="{% url 'atleta' atleta.pk %}"> selecionar  </a>
+        {{ atleta.nome }}
+    {% empty %}
+        Sem atletas
+    {% endfor %}
+{% endblock %}

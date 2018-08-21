@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Realmatismo Fc {% endblock %}
+{% block main %}
+     <div class="card bg-light">
+        <div class="card-header">Proxímos Jogos</div>
+              <div class="card-body">
+                {% if jogos.count > 0 %}
+
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Adversário</th>
+                          <th scope="col">Local</th>
+                          <th scope="col">Data</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for jogo in jogos %}
+                        <tr>
+                          <th scope="row">#</th>
+                            <td>{{ jogo.adversario }}</td>
+                            <td>{{ jogo.local }}</td>
+                            <td>{{ jogo.data }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+                {% else %}
+                    Sem Jogos
+                {% endif %}
+              </div>
+    </div>
+
+{% endblock %}
