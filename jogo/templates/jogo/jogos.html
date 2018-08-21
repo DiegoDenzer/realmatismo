@@ -10,7 +10,7 @@
                   <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
+                          <th scope="col">Ações</th>
                           <th scope="col">Adversário</th>
                           <th scope="col">Local</th>
                           <th scope="col">Data</th>
@@ -19,7 +19,7 @@
                       <tbody>
                         {% for jogo in jogos %}
                         <tr>
-                          <th scope="row">#</th>
+                          <th scope="row"><a href="{% url 'jogo' jogo.pk %}"><i class="fas fa-pencil-alt"></i></a></th>
                             <td>{{ jogo.adversario }}</td>
                             <td>{{ jogo.local }}</td>
                             <td>{{ jogo.data }}</td>
