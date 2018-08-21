@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ jogo.data }}|Realmatismo Fc {% endblock %}
 {% block main %}
-    {{ jogo.adversario }}
+    Local: {{ jogo.local }}
+    Data: {{ jogo.data }}
+    Adversário: {{ jogo.adversario.nome }}
 {% endblock %}
