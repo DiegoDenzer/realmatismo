@@ -124,7 +124,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     'jogo/static'
 ]
-
 MEDIA_URL = '/media/'
-
-MEDIA_ROOT = 'media'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
