@@ -20,7 +20,7 @@ class Atleta(models.Model):
 
 class Adversario(models.Model):
     nome = models.CharField(max_length=50)
-    escudo_adversario = models.ImageField(default="comuns/sem_escudo.png", upload_to='jogos', null=True, blank=True)
+    escudo_adversario = models.ImageField(default="comuns/sem_escudo.png", upload_to='adversarios', null=True, blank=True)
 
     class Meta:
         db_table = 'adversario'
@@ -46,13 +46,13 @@ class Local(models.Model):
 class Jogo(models.Model):
     adversario = models.ForeignKey(Adversario, on_delete=models.CASCADE)
     data = models.DateTimeField()
-    local = models.CharField(max_length=50)
+    local = models.ForeignKey(Local, on_delete=models.CASCADE)
     placar_real = models.IntegerField(null=True, blank=True)
     placar_adversario = models.IntegerField(null=True, blank=True)
     resumo = models.TextField(null=True, blank=True)
 
     def __str__(self):
-        return self.adversario
+        return self.adversario.nome
 
     class Meta:
         db_table = 'jogo'
@@ -65,3 +65,8 @@ class JogoAtleta(models.Model):
     atleta = models.ForeignKey(Atleta,  on_delete=models.CASCADE)
     gols = models.IntegerField(null=True, blank=True)
     asssitencia = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'jogo_x_atleta'
+        verbose_name = "JogoAtleta"
+        verbose_name_plural = "JogoAtletas"
