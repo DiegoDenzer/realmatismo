@@ -20,7 +20,7 @@ class Atleta(models.Model):
 
 class Adversario(models.Model):
     nome = models.CharField(max_length=50)
-    escudo_adversario = models.ImageField(default="media/adversarios/sem_escudo.png", upload_to='adversarios', null=True, blank=True)
+    escudo_adversario = models.ImageField(default="/adversarios/sem_escudo.png", upload_to='adversarios', null=True, blank=True)
 
     class Meta:
         db_table = 'adversario'
