@@ -15,7 +15,7 @@
                               <span class="title">{{ jogo.adversario.nome }}</span>
                               <p>{{ jogo.data }} <br>
                               </p>
-                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">grade</i></a>
+                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">send</i></a>
                             </li>
                         {% endfor %}
                           </ul>
@@ -38,7 +38,7 @@
                               <span class="title">{{ jogo.adversario.nome }}</span>
                               <p>{{ jogo.data }} <br>
                               </p>
-                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">grade</i></a>
+                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">send</i></a>
                             </li>
                         {% endfor %}
                           </ul>
@@ -52,21 +52,20 @@
     <div class="col s12 m4">
         <div class="card hoverable">
             <div class="card-content">
-                <span class="card-title">Jogos Anteriores</span>
-                    {% if jogos_anteriores.count > 0 %}
+                <span class="card-title">Notícias</span>
+                    {% if noticias.count > 0 %}
                         <ul class="collection" style="border: none">
-                        {% for jogo in jogos_anteriores %}
+                        {% for noticia in noticias %}
                             <li class="collection-item avatar">
-                              <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
-                              <span class="title">{{ jogo.adversario.nome }}</span>
-                              <p>{{ jogo.data }} <br>
+                              <span class="title">{{ noticia.titulo }}</span>
+                              <p>{{ noticia.corpo }} <br>
                               </p>
-                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">grade</i></a>
+                              <a href="{% url 'noticia' noticia.pk %}" class="secondary-content"><i class="material-icons">send</i></a>
                             </li>
                         {% endfor %}
                           </ul>
                     {% else %}
-                        Sem Jogos Realizados
+                        Sem Notícias
                     {% endif %}
             </div>
         </div>

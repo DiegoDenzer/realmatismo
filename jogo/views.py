@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from jogo.models import Jogo, Atleta
+from jogo.models import Jogo, Atleta, Noticia
 
 
 class Home(View):
@@ -17,12 +17,26 @@ class Home(View):
         proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
         data['proximos_jogos'] = proximos_jogos
 
+        noticias = Noticia.objects.order_by('data_inclusao')
+        data['noticias'] = noticias
+
         return render(self.request, 'jogo/home.html', data)
 
 class ListaAtletas(ListView):
     template_name = 'jogo/atletas.html'
     model = Atleta
     context_object_name = 'atletas'
+
+class ListaNoticias(ListView):
+    template_name = 'jogo/Noticias.html'
+    model = Noticia
+    context_object_name = 'noticias'
+
+class NoticiaDetail(DetailView):
+    context_object_name = 'noticia'
+    model = Atleta
+    template_name = 'jogo/noticia.html'
+
 
 class AtletaDetail(DetailView):
     context_object_name = 'atleta'

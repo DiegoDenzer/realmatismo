@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from jogo.models import Jogo, Atleta, Adversario, JogoAtleta, Local
+from jogo.models import Jogo, Atleta, Adversario, JogoAtleta, Local, Noticia
 
 
 class JogadorTabular(admin.TabularInline):
@@ -19,7 +19,11 @@ class AdversarioAdmin(admin.ModelAdmin):
 class LocalAdmin(admin.ModelAdmin):
     pass
 
+class NoticiaAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Jogo, JogoAdmin)
 admin.site.register(Atleta, AtletaAdmin)
 admin.site.register(Adversario, AdversarioAdmin)
 admin.site.register(Local, LocalAdmin)
+admin.site.register(Noticia, NoticiaAdmin)

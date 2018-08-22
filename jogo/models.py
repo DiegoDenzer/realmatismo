@@ -70,3 +70,15 @@ class JogoAtleta(models.Model):
         db_table = 'jogo_x_atleta'
         verbose_name = "JogoAtleta"
         verbose_name_plural = "JogoAtletas"
+
+
+class Noticia(models.Model):
+    titulo = models.CharField(max_length=100)
+    corpo = models.TextField()
+    data_inclusao = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        db_table = 'noticia'
+        verbose_name = "Noticia"
+        verbose_name_plural = "Noticias"
