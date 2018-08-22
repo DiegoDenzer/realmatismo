@@ -28,7 +28,7 @@ class ListaAtletas(ListView):
     context_object_name = 'atletas'
 
 class ListaNoticias(ListView):
-    template_name = 'jogo/Noticias.html'
+    template_name = 'jogo/noticias.html'
     model = Noticia
     context_object_name = 'noticias'
 
