@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     'jogo/static'
 ]
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'media'

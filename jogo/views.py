@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
@@ -7,8 +8,16 @@ from jogo.models import Jogo, Atleta
 
 class Home(View):
     def get(self, *args, **kwargs):
-        jogos = Jogo.objects.order_by('-data')
-        return render(self.request, 'jogo/home.html', {'jogos': jogos})
+        data= {}
+        now = datetime.now()
+
+        jogos_anteriores = Jogo.objects.order_by('-data').filter(data__lt=now)
+        data['jogos_anteriores'] = jogos_anteriores
+
+        proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
+        data['proximos_jogos'] = proximos_jogos
+
+        return render(self.request, 'jogo/home.html', data)
 
 class ListaAtletas(ListView):
     template_name = 'jogo/atletas.html'
