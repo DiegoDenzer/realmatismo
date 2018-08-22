@@ -11,11 +11,14 @@
                         <ul class="collection" style="border: none">
                         {% for jogo in proximos_jogos %}
                             <li class="collection-item avatar">
+                                <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
                               <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
                               <span class="title">{{ jogo.adversario.nome }}</span>
+                                <br>
                               <p>{{ jogo.data }} <br>
+                                 {{ jogo.local.nome }}
                               </p>
-                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">send</i></a>
+                              </a>
                             </li>
                         {% endfor %}
                           </ul>
@@ -34,11 +37,12 @@
                         <ul class="collection" style="border: none">
                         {% for jogo in jogos_anteriores %}
                             <li class="collection-item avatar">
+                                 <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
                               <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
                               <span class="title">{{ jogo.adversario.nome }}</span>
                               <p>{{ jogo.data }} <br>
                               </p>
-                              <a href="{% url 'jogo' jogo.pk %}" class="secondary-content"><i class="material-icons">send</i></a>
+                              </a>
                             </li>
                         {% endfor %}
                           </ul>
