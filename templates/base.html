@@ -18,26 +18,25 @@
       <a href="{% url 'home' %}" class="brand-logo">Realmatismo FC</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'jogos' %}">Jogos</a></li>
-        <li><a href="{% url 'atletas' %}">Atletas</a></li>
-        <li><a href="{% url 'noticias' %}">Notícias</a></li>
+          <li><a href="{% url 'jogos' %}">Jogos</a></li>
+          <li><a href="{% url 'atletas' %}">Atletas</a></li>
+          <li><a href="{% url 'noticias' %}">Notícias</a></li>
+          <li><a href="{% url 'estatistica' %}">Tops</a></li>
       </ul>
     </div>
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a href="{% url 'jogos' %}">Jogos</a></li>
-    <li><a href="{% url 'atletas' %}">Atletas</a></li>
-    <li><a href="{% url 'noticias' %}">Notícias</a></li>
+      <li><a href="{% url 'jogos' %}">Jogos</a></li>
+      <li><a href="{% url 'atletas' %}">Atletas</a></li>
+      <li><a href="{% url 'noticias' %}">Notícias</a></li>
+      <li><a href="{% url 'estatistica' %}">Tops</a></li>
   </ul>
 
 
 <div class="container-fluid">
     {% block main %}{% endblock %}
 </div>
-    <!-- /.container-fluid -->
-
-<!-- /#page-wrapper -->
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

@@ -10,6 +10,48 @@ class Atleta(models.Model):
     imagem = models.ImageField(upload_to='atletas', null=True, blank=True)
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
 
+    # FIXME Talvez não seja a melhor forma, refatorar
+    @property
+    def gols(self):
+        gols = 0
+        cards = JogoAtleta.objects.filter(atleta=self)
+        for card in cards:
+            if card.gols is not None:
+                gols = gols + card.gols
+        return gols
+
+    @property
+    def assistencia(self):
+        assistencia = 0
+        cards = JogoAtleta.objects.filter(atleta=self)
+        for card in cards:
+            if card.asssitencia is not None:
+                assistencia = assistencia + card.asssitencia
+        return assistencia
+
+    @property
+    def roubo(self):
+        r_b = 0
+        cards = JogoAtleta.objects.filter(atleta=self)
+        for card in cards:
+            if card.roubo_de_bola is not None:
+                r_b +=  card.roubo_de_bola
+        return r_b
+
+    @property
+    def defesa(self):
+        defesa = 0
+        cards = JogoAtleta.objects.filter(atleta=self)
+        for card in cards:
+            if card.asssitencia is not None:
+                defesa += card.defesas
+        return defesa
+
+    @property
+    def jogos_realizados(self):
+        return JogoAtleta.objects.filter(atleta=self).count()
+
+
     class Meta:
         db_table = 'atleta'
         verbose_name = "Atleta"
@@ -65,6 +107,9 @@ class JogoAtleta(models.Model):
     atleta = models.ForeignKey(Atleta,  on_delete=models.CASCADE)
     gols = models.IntegerField(null=True, blank=True)
     asssitencia = models.IntegerField(null=True, blank=True)
+    roubo_de_bola = models.IntegerField(null=True, blank=True)
+    defesas = models.IntegerField(null=True, blank=True)
+
 
     class Meta:
         db_table = 'jogo_x_atleta'

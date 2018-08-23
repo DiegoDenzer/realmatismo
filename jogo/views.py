@@ -1,9 +1,11 @@
 from datetime import datetime
+
+from django.db.models import Sum
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from jogo.models import Jogo, Atleta, Noticia
+from jogo.models import Jogo, Atleta, Noticia, JogoAtleta
 
 
 class Home(View):
@@ -43,12 +45,43 @@ class AtletaDetail(DetailView):
     model = Atleta
     template_name = 'jogo/atleta_detalhe.html'
 
+
 class JogoDetail(DetailView):
     context_object_name = 'jogo'
     model = Jogo
     template_name = 'jogo/jogo_detalhe.html'
 
+
 class ListaJogos(View):
     def get(self, *args, **kwargs):
         jogos = Jogo.objects.order_by('-data')
         return render(self.request, 'jogo/jogos.html', {'jogos': jogos})
+
+
+class Estatisticas(View):
+    template = 'jogo/estatistica.html'
+
+    def get(self, *args, **kwargs):
+        vitoria = 0
+        derrota = 0
+        empate = 0
+        for jogo in Jogo.objects.filter(placar_real__isnull=False, placar_adversario__isnull=False):
+            if jogo.placar_real > jogo.placar_adversario:
+                vitoria += 1
+            elif jogo.placar_adversario > jogo.placar_real:
+                derrota += 1
+            else:
+                empate += 1
+
+        jogadores = Atleta.objects.all()
+
+        data = {
+            'jogadores': jogadores,
+            'gols_favor': Jogo.objects.all().aggregate(Sum('placar_real')),
+            'gols_contra': Jogo.objects.all().aggregate(Sum('placar_adversario')),
+            'vitoria': vitoria,
+            'derrota':derrota,
+            'empate': empate
+        }
+        return render(self.request, self.template, data)
+
