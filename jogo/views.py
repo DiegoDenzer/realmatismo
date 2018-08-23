@@ -73,10 +73,13 @@ class Estatisticas(View):
             else:
                 empate += 1
 
-        jogadores = Atleta.objects.all()
+        jogo =JogoAtleta.objects.get_or_create()
+        jogo.a
 
+
+        print(lista)
         data = {
-            'jogadores': jogadores,
+            'jogadores': lista,
             'gols_favor': Jogo.objects.all().aggregate(Sum('placar_real')),
             'gols_contra': Jogo.objects.all().aggregate(Sum('placar_adversario')),
             'vitoria': vitoria,

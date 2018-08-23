@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, connection
 
 
 class Atleta(models.Model):
@@ -10,18 +10,9 @@ class Atleta(models.Model):
     imagem = models.ImageField(upload_to='atletas', null=True, blank=True)
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
 
-    # FIXME Talvez não seja a melhor forma, refatorar
-    @property
-    def gols(self):
-        gols = 0
-        cards = JogoAtleta.objects.filter(atleta=self)
-        for card in cards:
-            if card.gols is not None:
-                gols = gols + card.gols
-        return gols
-
     @property
     def assistencia(self):
+
         assistencia = 0
         cards = JogoAtleta.objects.filter(atleta=self)
         for card in cards:
@@ -35,7 +26,7 @@ class Atleta(models.Model):
         cards = JogoAtleta.objects.filter(atleta=self)
         for card in cards:
             if card.roubo_de_bola is not None:
-                r_b +=  card.roubo_de_bola
+                r_b += card.roubo_de_bola
         return r_b
 
     @property
@@ -51,7 +42,6 @@ class Atleta(models.Model):
     def jogos_realizados(self):
         return JogoAtleta.objects.filter(atleta=self).count()
 
-
     class Meta:
         db_table = 'atleta'
         verbose_name = "Atleta"
@@ -60,9 +50,11 @@ class Atleta(models.Model):
     def __str__(self):
         return self.nome + " " + self.sobrenome
 
+
 class Adversario(models.Model):
     nome = models.CharField(max_length=50)
-    escudo_adversario = models.ImageField(default="/adversarios/sem_escudo.png", upload_to='adversarios', null=True, blank=True)
+    escudo_adversario = models.ImageField(default="/adversarios/sem_escudo.png", upload_to='adversarios', null=True,
+                                          blank=True)
 
     class Meta:
         db_table = 'adversario'
@@ -71,6 +63,7 @@ class Adversario(models.Model):
 
     def __str__(self):
         return self.nome
+
 
 class Local(models.Model):
     nome = models.CharField(max_length=50)
@@ -104,12 +97,18 @@ class Jogo(models.Model):
 
 class JogoAtleta(models.Model):
     jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE)
-    atleta = models.ForeignKey(Atleta,  on_delete=models.CASCADE)
+    atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE)
     gols = models.IntegerField(null=True, blank=True)
     asssitencia = models.IntegerField(null=True, blank=True)
     roubo_de_bola = models.IntegerField(null=True, blank=True)
     defesas = models.IntegerField(null=True, blank=True)
 
+
+    def artilheiro(self):
+        cursor = connection.cursor()
+        cursor.execute('SELECT atleta_id, sum(gols) as artilheiro FROM jogo_x_atleta WHERE jogo_x_atleta.gols>0 ORDER BY atleta_id, artilheiro')
+        lista = self.dictfetchall(cursor)
+        return lista
 
     class Meta:
         db_table = 'jogo_x_atleta'
@@ -121,7 +120,6 @@ class Noticia(models.Model):
     titulo = models.CharField(max_length=100)
     corpo = models.TextField()
     data_inclusao = models.DateTimeField(auto_now=True)
-
 
     class Meta:
         db_table = 'noticia'
