@@ -2,7 +2,7 @@
 {% block title %}Estatisticas|Realmatismo Fc {% endblock %}
 {% block main %}
     <div class="row">
-        <div class="col s12 m2 l2">
+        <div class="col s12 m4 l4">
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title">Top Artilharia</span>
@@ -14,7 +14,7 @@
                             </tr>
                         </thead>
                          <tbody>
-                            {% for atleta in jogadores %}
+                            {% for atleta in artilharia %}
                                 <tr>
                                     <td>{{ atleta.nome}}</td>
                                     <td>{{ atleta.gols }}</td>
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="col s12 m2 l2">
+        <div class="col s12 m4 l4">
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title">Assistencias</span>
@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                          <tbody>
-                            {% for atleta in jogadores %}
+                            {% for atleta in passadores %}
                                 {% if atleta.assistencia  %}
                                 
                                 {% endif %}
@@ -53,10 +53,10 @@
             </div>
         </div>
 
-        <div class="col s12 m2 l2">
+        <div class="col s12 m4 l4">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title">Assistencias</span>
+                    <span class="card-title">Roubadas</span>
                     <table>
                         <thead>
                             <tr>
@@ -65,10 +65,10 @@
                             </tr>
                         </thead>
                          <tbody>
-                            {% for atleta in jogadores %}
+                            {% for atleta in ladroes %}
                                 <tr>
                                     <td>{{ atleta.nome }}</td>
-                                    <td>{{ atleta.assistencia }}</td>
+                                    <td>{{ atleta.roubo }}</td>
                                 </tr>
                             {% endfor %}
                          </tbody>
@@ -77,6 +77,79 @@
             </div>
         </div>
 
+
+        <div class="col s12 m4 l4">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Defesas</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Assis.</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {% for atleta in defesas %}
+                                <tr>
+                                    <td>{{ atleta.nome }}</td>
+                                    <td>{{ atleta.defesa }}</td>
+                                </tr>
+                            {% endfor %}
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col s12 m4 l4">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Jogos Disputados</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Jogos</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {% for atleta in ladroes %}
+                                <tr>
+                                    <td>{{ atleta.nome }}</td>
+                                    <td>{{ atleta.jogos_realizados }}</td>
+                                </tr>
+                            {% endfor %}
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m4 l4">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Minutos Jogados</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Jogos</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {% for atleta in minutos %}
+                                <tr>
+                                    <td>{{ atleta.nome }}</td>
+                                    <td>{{ atleta.minutos }}</td>
+                                </tr>
+                            {% endfor %}
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
 
     </div>
 

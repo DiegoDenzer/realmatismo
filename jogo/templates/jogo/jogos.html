@@ -1,36 +1,29 @@
 {% extends 'base.html' %}
 {% block title %}Jogos|Realmatismo Fc {% endblock %}
 {% block main %}
-
-    <div class="card bg-light">
-        <div class="card-header">Jogos</div>
-              <div class="card-body">
-                {% if jogos.count > 0 %}
-
-                  <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Ações</th>
-                          <th scope="col">Adversário</th>
-                          <th scope="col">Local</th>
-                          <th scope="col">Data</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for jogo in jogos %}
-                        <tr>
-                          <th scope="row"><a href="{% url 'jogo' jogo.pk %}"><i class="fas fa-pencil-alt"></i></a></th>
-                            <td>{{ jogo.adversario }}</td>
-                            <td>{{ jogo.local }}</td>
-                            <td>{{ jogo.data }}</td>
-                        </tr>
-                        {% endfor %}
-                      </tbody>
-                  </table>
-                {% else %}
-                    Sem Jogos
-                {% endif %}
-              </div>
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Top Artilharia</span>
+                    {% if jogos.count > 0 %}
+                        <ul class="collapsible">
+                            {% for jogo in jogos %}
+                                <li>
+                                  <div class="collapsible-header">
+                                      REALMATISMO FC X {{ jogo.adversario }}
+                                  </div>
+                                  <div class="collapsible-body">
+                                    {{ jogo.data }}
+                                  </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        Sem Jogos
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-
 {% endblock %}

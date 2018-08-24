@@ -11,6 +11,27 @@ class Atleta(models.Model):
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
 
     @property
+    def gols(self):
+
+        gols = 0
+        cards = JogoAtleta.objects.filter(atleta=self)
+        for card in cards:
+            if card.gols is not None:
+                gols = gols + card.gols
+        return gols
+
+    @property
+    def minutos(self):
+
+        minutos = 0
+        cards = JogoAtleta.objects.filter(atleta=self)
+        for card in cards:
+            if card.minutos is not None:
+                minutos = minutos + card.minutos
+        return minutos
+
+
+    @property
     def assistencia(self):
 
         assistencia = 0
@@ -34,7 +55,7 @@ class Atleta(models.Model):
         defesa = 0
         cards = JogoAtleta.objects.filter(atleta=self)
         for card in cards:
-            if card.asssitencia is not None:
+            if card.defesas is not None:
                 defesa += card.defesas
         return defesa
 
@@ -102,13 +123,8 @@ class JogoAtleta(models.Model):
     asssitencia = models.IntegerField(null=True, blank=True)
     roubo_de_bola = models.IntegerField(null=True, blank=True)
     defesas = models.IntegerField(null=True, blank=True)
+    minutos = models.IntegerField(null=True, blank=True)
 
-
-    def artilheiro(self):
-        cursor = connection.cursor()
-        cursor.execute('SELECT atleta_id, sum(gols) as artilheiro FROM jogo_x_atleta WHERE jogo_x_atleta.gols>0 ORDER BY atleta_id, artilheiro')
-        lista = self.dictfetchall(cursor)
-        return lista
 
     class Meta:
         db_table = 'jogo_x_atleta'

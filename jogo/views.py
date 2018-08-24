@@ -14,13 +14,13 @@ class Home(View):
         now = datetime.now()
 
         jogos_anteriores = Jogo.objects.order_by('-data').filter(data__lt=now)
-        data['jogos_anteriores'] = jogos_anteriores
+        data['jogos_anteriores'] = jogos_anteriores[:3]
 
         proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
-        data['proximos_jogos'] = proximos_jogos
+        data['proximos_jogos'] = proximos_jogos[:3]
 
         noticias = Noticia.objects.order_by('data_inclusao')
-        data['noticias'] = noticias
+        data['noticias'] = noticias[:3]
 
         return render(self.request, 'jogo/home.html', data)
 
@@ -73,13 +73,40 @@ class Estatisticas(View):
             else:
                 empate += 1
 
-        jogo =JogoAtleta.objects.get_or_create()
-        jogo.a
+        jogadores = Atleta.objects.all()
+
+        artilheiros = {}
+        passadores = {}
+        ladroes = {}
+        defesas = {}
+        participacoes = {}
+        minutos = {}
 
 
-        print(lista)
+        for jogador in jogadores:
+            artilheiros[jogador] = jogador.gols
+            passadores[jogador] = jogador.assistencia
+            ladroes[jogador] = jogador.roubo
+            defesas[jogador] = jogador.defesa
+            participacoes[jogador] = jogador.jogos_realizados
+            minutos[jogador] = jogador.minutos
+
+        lista_artilheiros = sorted(artilheiros, key=artilheiros.__getitem__, reverse=True)
+        lista_passsadores = sorted(passadores, key=passadores.__getitem__, reverse=True)
+        lista_ladroes = sorted(ladroes, key=ladroes.__getitem__, reverse=True)
+        lista_defesas = sorted(defesas, key=defesas.__getitem__, reverse=True)
+        lista_jogos = sorted(participacoes, key=participacoes.__getitem__, reverse=True)
+        lista_minutos = sorted(minutos, key=minutos.__getitem__, reverse=True)
+
         data = {
-            'jogadores': lista,
+            # Dados Atletas...
+            'artilharia': lista_artilheiros,
+            'passadores': lista_passsadores,
+            'ladroes': lista_ladroes,
+            'defesas':  lista_defesas,
+            'jogos_jogados': lista_jogos,
+            'minutos': lista_minutos,
+            #Dados Time...
             'gols_favor': Jogo.objects.all().aggregate(Sum('placar_real')),
             'gols_contra': Jogo.objects.all().aggregate(Sum('placar_adversario')),
             'vitoria': vitoria,
