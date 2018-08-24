@@ -7,7 +7,7 @@
                 <div class="card-content">
                     <span class="card-title">Jogos</span>
                     {% if jogos.count > 0 %}
-                        <ul class="collection">
+                        <ul class="collection" style="border: none">
                             {% for jogo in jogos %}
                                 <li class="collection-item">
                                       <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
