@@ -3,20 +3,27 @@
 {% block main %}
     <div class="row">
         <div class="col s12 m12 l12">
-            <div class="card hoverable">
+            <div class="card">
                 <div class="card-content">
-                    <span class="card-title">Top Artilharia</span>
+                    <span class="card-title">Jogos</span>
                     {% if jogos.count > 0 %}
-                        <ul class="collapsible">
+                        <ul class="collection">
                             {% for jogo in jogos %}
-                                <li>
-                                  <div class="collapsible-header">
-                                      REALMATISMO FC X {{ jogo.adversario }}
-                                  </div>
-                                  <div class="collapsible-body">
-                                    {{ jogo.data }}
-                                  </div>
+                                <li class="collection-item">
+                                      <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
+                                        <h6 class="center-align">  REALMATISMO FC
+                                          {% if jogo.placar_real is not None %}
+                                            {{ jogo.placar_real }}
+                                          {% endif %}
+                                          X
+                                          {% if jogo.placar_adversario is not None %}
+                                            {{ jogo.placar_adversario }}
+                                          {% endif %}
+                                          {{ jogo.adversario.nome }}
+                                        </h6>
+                                      </a>
                                 </li>
+
                             {% endfor %}
                         </ul>
                     {% else %}
