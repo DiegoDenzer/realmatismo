@@ -110,6 +110,17 @@ class Jogo(models.Model):
     def __str__(self):
         return self.adversario.nome
 
+    @property
+    def relacionados(self):
+        lista = self.jogadores.all()
+        final = []
+        final.append(lista.first())
+        for dado in lista:
+            if not dado.atleta in final:
+               final.append(dado.atleta)
+
+        return final
+
     class Meta:
         db_table = 'jogo'
         verbose_name = "Jogo"
@@ -117,7 +128,7 @@ class Jogo(models.Model):
 
 
 class JogoAtleta(models.Model):
-    jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE)
+    jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE, related_name='jogadores')
     atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE)
     gols = models.IntegerField(null=True, blank=True)
     asssitencia = models.IntegerField(null=True, blank=True)
@@ -125,6 +136,8 @@ class JogoAtleta(models.Model):
     defesas = models.IntegerField(null=True, blank=True)
     minutos = models.IntegerField(null=True, blank=True)
 
+    def __str__(self):
+        return f'{self.atleta.nome}'
 
     class Meta:
         db_table = 'jogo_x_atleta'
