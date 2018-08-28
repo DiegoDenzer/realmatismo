@@ -118,7 +118,6 @@ class Jogo(models.Model):
         for dado in lista:
             if not dado.atleta in final:
                final.append(dado.atleta)
-
         return final
 
     class Meta:

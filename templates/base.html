@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <!-- Compiled and minified CSS -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/stylo.css' %}">
 
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -31,21 +33,26 @@
       <div class="background">
 
       </div>
-      <a href="#user"><img class="circle" src="../media/adversarios/real.png"></a>
+      <a href="#user"><img class="circle" src="../media/adversarios/real.png" width="1000px"></a>
       <a href="#name"><span class="black-text name">Realmatismo FC</span></a>
       <a href="#email"><span class="black-text email">since 2015</span></a>
     </div></li>
-      <li><a href="{% url 'home' %}"><i class="material-icons">home</i>Inicio</a></li>
-      <li><a href="{% url 'jogos' %}">Jogos</a></li>
-      <li><a href="{% url 'atletas' %}">Atletas</a></li>
-      <li><a href="{% url 'noticias' %}">Notícias</a></li>
-      <li><a href="{% url 'estatistica' %}">Tops</a></li>
+      <li><a href="{% url 'home' %}"><i class="fas fa-home fa-lg"></i>Inicio</a></li>
+      <li><a href="{% url 'jogos' %}"><i class="fas fa-futbol fa-lg"></i> Jogos</a></li>
+      <li><a href="{% url 'atletas' %}"><i class="fas fa-users fa-lg"></i> Atletas</a></li>
+      <li><a href="{% url 'noticias' %}"><i class="fas fa-newspaper fa-lg"></i>Notícias</a></li>
+      <li><a href="{% url 'estatistica' %}"><i class="fas fa-star fa-lg"></i>Tops</a></li>
   </ul>
 
-
+<main>
 <div class="container-fluid">
     {% block main %}{% endblock %}
 </div>
+</main>
+  <footer class="page-footer">
+     {% include 'footer.html' %}
+ </footer>
+
     <script  src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>

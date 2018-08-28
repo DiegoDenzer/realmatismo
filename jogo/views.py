@@ -65,7 +65,9 @@ class Estatisticas(View):
         vitoria = 0
         derrota = 0
         empate = 0
+
         for jogo in Jogo.objects.filter(placar_real__isnull=False, placar_adversario__isnull=False):
+
             if jogo.placar_real > jogo.placar_adversario:
                 vitoria += 1
             elif jogo.placar_adversario > jogo.placar_real:
@@ -98,6 +100,10 @@ class Estatisticas(View):
         lista_jogos = sorted(participacoes, key=participacoes.__getitem__, reverse=True)
         lista_minutos = sorted(minutos, key=minutos.__getitem__, reverse=True)
 
+        favor = Jogo.objects.all().aggregate(Sum('placar_real'))
+        contra = Jogo.objects.all().aggregate(Sum('placar_adversario'))
+        saldo = favor['placar_real__sum'] - contra['placar_adversario__sum']
+
         data = {
             # Dados Atletas...
             'artilharia': lista_artilheiros,
@@ -107,11 +113,13 @@ class Estatisticas(View):
             'jogos_jogados': lista_jogos,
             'minutos': lista_minutos,
             #Dados Time...
-            'gols_favor': Jogo.objects.all().aggregate(Sum('placar_real')),
-            'gols_contra': Jogo.objects.all().aggregate(Sum('placar_adversario')),
+            'gols_favor': favor['placar_real__sum'],
+            'gols_contra':contra['placar_adversario__sum'],
             'vitoria': vitoria,
             'derrota':derrota,
-            'empate': empate
+            'empate': empate,
+            'total': vitoria+derrota+empate,
+            'saldo': saldo
         }
         return render(self.request, self.template, data)
 

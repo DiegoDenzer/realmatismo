@@ -11,7 +11,9 @@
                             {% for jogo in jogos %}
                                 <li class="collection-item">
                                       <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
-                                        <h6 class="center-align">  REALMATISMO FC
+                                        <h6 class="center-align" style="color: {% if jogo.placar_real > jogo.placar_adversario %}#0f9d58
+                                        {% endif %}{% if jogo.placar_real < jogo.placar_adversario %}red
+                                        {% endif %} ">  REALMATISMO FC
                                           {% if jogo.placar_real is not None %}
                                             {{ jogo.placar_real }}
                                           {% endif %}
@@ -19,7 +21,9 @@
                                           {% if jogo.placar_adversario is not None %}
                                             {{ jogo.placar_adversario }}
                                           {% endif %}
-                                          {{ jogo.adversario.nome }}
+                                          {{ jogo.adversario.nome }} -
+                                          {{ jogo.data|date:"d M Y" }}
+
                                         </h6>
                                       </a>
                                 </li>

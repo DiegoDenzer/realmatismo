@@ -3,10 +3,31 @@
 {% block main %}
 
     <div class="row">
-        <div class="col s12 m4 l4">
+        <div class="col s12">
             <div class="card hoverable">
                 <div class="card-content">
+                    <span class="card-title">Dados Equipe</span>
+                    <table class="responsive-table">
+                        <tr>
+                            <th>Jogos</th>
+                            <th>Vitórias</th>
+                            <th>Empates</th>
+                            <th>Derrotas</th>
+                            <th>GP</th>
+                            <th>GS</th>
+                            <th>Saldo</th>
+                        </tr>
+                        <tr>
+                            <td>{{ total }}</td>
+                            <td>{{ vitoria }}</td>
+                            <td>{{ empate }}</td>
+                            <td>{{ derrota }}</td>
+                            <th>{{ gols_favor }}</th>
+                            <th>{{ gols_contra }}</th>
+                            <th>{{ saldo }}</th>
+                        </tr>
 
+                    </table>
                 </div>
             </div>
         </div>
@@ -125,7 +146,7 @@
                             </tr>
                         </thead>
                          <tbody>
-                            {% for atleta in ladroes %}
+                            {% for atleta in jogos_jogados %}
                                 <tr>
                                     <td>{{ atleta.nome }}</td>
                                     <td>{{ atleta.jogos_realizados }}</td>

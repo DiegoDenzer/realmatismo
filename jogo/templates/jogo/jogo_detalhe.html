@@ -49,9 +49,13 @@
                                     Data: {{ jogo.data|date:"d M Y" }}
                                 </div>
                                 <div class="row">
-                                    <h5 class="center">Escalação: </h5><br>
+                                    <h5 class="center">Participantes: </h5><br>
                                     {% for t in jogo.relacionados %}
-                                        {{ t.nome }}
+                                        {% if t.nome is not None%}
+                                            {{ t.nome }},
+                                        {% else %}
+                                        {% endif %}
+
                                     {% endfor %}
 
                                 </div>
