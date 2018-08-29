@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Atletas|Realmatismo Fc {% endblock %}
 {% block main %}
+    <ul class="collection">
     {% for atleta in atletas %}
-        <a href="{% url 'atleta' atleta.pk %}"> selecionar  </a>
-        {{ atleta.nome }}
+
+        <li class="collection-item avatar">
+            <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
+            <span class="title">{{ jogo.adversario.nome }}</span>
+            <a href="{% url 'atleta' atleta.pk %}"> {{ atleta.nome }} </a>
+        </li>
     {% empty %}
         Sem atletas
     {% endfor %}
+    </ul>
 {% endblock %}
