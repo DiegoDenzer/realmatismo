@@ -10,7 +10,7 @@ from jogo.models import Jogo, Atleta, Noticia, JogoAtleta
 
 class Home(View):
     def get(self, *args, **kwargs):
-        data= {}
+        data = {}
         now = datetime.now()
 
         jogos_anteriores = Jogo.objects.order_by('-data').filter(data__lt=now)
@@ -24,15 +24,18 @@ class Home(View):
 
         return render(self.request, 'jogo/home.html', data)
 
+
 class ListaAtletas(ListView):
     template_name = 'jogo/atletas.html'
     model = Atleta
     context_object_name = 'atletas'
 
+
 class ListaNoticias(ListView):
     template_name = 'jogo/noticias.html'
     model = Noticia
     context_object_name = 'noticias'
+
 
 class NoticiaDetail(DetailView):
     context_object_name = 'noticia'
@@ -84,7 +87,6 @@ class Estatisticas(View):
         participacoes = {}
         minutos = {}
 
-
         for jogador in jogadores:
             artilheiros[jogador] = jogador.gols
             passadores[jogador] = jogador.assistencia
@@ -106,20 +108,91 @@ class Estatisticas(View):
 
         data = {
             # Dados Atletas...
-            'artilharia': lista_artilheiros,
-            'passadores': lista_passsadores,
-            'ladroes': lista_ladroes,
-            'defesas':  lista_defesas,
-            'jogos_jogados': lista_jogos,
-            'minutos': lista_minutos,
-            #Dados Time...
+            'artilharia': lista_artilheiros[:3],
+            'passadores': lista_passsadores[:3],
+            'ladroes': lista_ladroes[:3],
+            'defesas': lista_defesas[:3],
+            'jogos_jogados': lista_jogos[:3],
+            'minutos': lista_minutos[:3],
+            # Dados Time...
             'gols_favor': favor['placar_real__sum'],
-            'gols_contra':contra['placar_adversario__sum'],
+            'gols_contra': contra['placar_adversario__sum'],
             'vitoria': vitoria,
-            'derrota':derrota,
+            'derrota': derrota,
             'empate': empate,
-            'total': vitoria+derrota+empate,
+            'total': vitoria + derrota + empate,
             'saldo': saldo
         }
         return render(self.request, self.template, data)
 
+
+class Artilheiros(View):
+    template = 'jogo/artilharia.html'
+
+    def get(self, *args, **kwargs):
+        jogadores = Atleta.objects.all()
+        artilheiros = {}
+        for jogador in jogadores:
+            artilheiros[jogador] = jogador.gols
+        lista_artilheiros = sorted(artilheiros, key=artilheiros.__getitem__, reverse=True)
+        return render(self.request, self.template, {'lista': lista_artilheiros})
+
+
+class Assistencias(View):
+    template = 'jogo/assistencias.html'
+
+    def get(self, *args, **kwargs):
+        jogadores = Atleta.objects.all()
+        assist = {}
+        for jogador in jogadores:
+            assist[jogador] = jogador.assistencia
+        lista = sorted(assist, key=assist.__getitem__, reverse=True)
+        return render(self.request, self.template, {'lista': lista})
+
+
+class roubadas(View):
+    template = 'jogo/roubadas.html'
+
+    def get(self, *args, **kwargs):
+        jogadores = Atleta.objects.all()
+        dic = {}
+        for jogador in jogadores:
+            dic[jogador] = jogador.roubo
+        lista = sorted(dic, key=dic.__getitem__, reverse=True)
+        return render(self.request, self.template, {'lista': lista})
+
+
+class defesas(View):
+    template = 'jogo/defesas.html'
+
+    def get(self, *args, **kwargs):
+        jogadores = Atleta.objects.all()
+        dic = {}
+        for jogador in jogadores:
+            dic[jogador] = jogador.defesa
+        lista = sorted(dic, key=dic.__getitem__, reverse=True)
+        return render(self.request, self.template, {'lista': lista})
+
+
+class JogosDisputados(View):
+    template = 'jogo/jogos-disputados.html'
+
+    def get(self, *args, **kwargs):
+        jogadores = Atleta.objects.all()
+        dic = {}
+        for jogador in jogadores:
+            dic[jogador] = jogador.jogos_realizados
+        lista = sorted(dic, key=dic.__getitem__, reverse=True)
+        return render(self.request, self.template, {'lista': lista})
+
+
+class Minutos(View):
+    template = 'jogo/minutos.html'
+
+    def get(self, *args, **kwargs):
+        jogadores = Atleta.objects.all()
+        dic = {}
+        for jogador in jogadores:
+            dic[jogador] = jogador.minutos
+        lista = sorted(dic, key=dic.__getitem__, reverse=True)
+        return render(self.request, self.template, {'lista': lista})

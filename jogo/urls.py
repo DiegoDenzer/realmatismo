@@ -1,7 +1,7 @@
 from django.urls import path
 
 from jogo.views import Home, ListaAtletas, AtletaDetail, JogoDetail, ListaJogos, ListaNoticias, NoticiaDetail, \
-    Estatisticas
+    Estatisticas, Artilheiros, Assistencias
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -12,4 +12,12 @@ urlpatterns = [
     path('noticias', ListaNoticias.as_view(), name='noticias'),
     path('noticia/<int:pk>', NoticiaDetail.as_view(), name='noticia'),
     path('estatistica', Estatisticas.as_view(), name='estatistica'),
+
+    path('artilharia', Artilheiros.as_view(), name='artilharia'),
+    path('assistencias', Assistencias.as_view(), name='assistencias'),
+    path('defesas', Estatisticas.as_view(), name='defesas'),
+    path('roubadas', Estatisticas.as_view(), name='roubadas'),
+    path('minutos', Estatisticas.as_view(), name='minutos'),
+    path('jogos-jogados', Estatisticas.as_view(), name='jogos-jogados'),
+
 ]

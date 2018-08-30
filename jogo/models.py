@@ -7,7 +7,8 @@ class Atleta(models.Model):
     apelido = models.CharField(max_length=50)
     data_nascimento = models.DateField(null=True)
     local_nascimento = models.CharField(max_length=50)
-    imagem = models.ImageField(upload_to='atletas', null=True, blank=True)
+    imagem = models.ImageField(default="/adversarios/sem-foto.png", upload_to='adversarios', null=True,
+                                          blank=True)
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
 
     @property
