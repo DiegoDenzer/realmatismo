@@ -37,12 +37,12 @@
                         <ul class="collection" style="border: none">
                         {% for jogo in jogos_anteriores %}
                             <li class="collection-item avatar">
-                                 <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
-                              <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
-                              <span class="title">{{ jogo.adversario.nome }}</span>
-                              <p>{{ jogo.data }} <br>
-                              </p>
-                              </a>
+                                <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
+                                  <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
+                                  <span class="title">{{ jogo.adversario.nome }}</span>
+                                  <p>{{ jogo.data }} <br>
+                                  </p>
+                                </a>
                             </li>
                         {% endfor %}
                           </ul>

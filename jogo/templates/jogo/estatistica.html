@@ -8,23 +8,27 @@
                 <div class="card-content">
                     <span class="card-title">Dados Equipe</span>
                     <table class="responsive-table">
+
                         <tr>
-                            <th>Jogos</th>
-                            <th>Vitórias</th>
-                            <th>Empates</th>
-                            <th>Derrotas</th>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>E</th>
+                            <th>D</th>
                             <th>GP</th>
                             <th>GS</th>
-                            <th>Saldo</th>
+                            <th>S</th>
                         </tr>
+
                         <tr>
-                            <td>{{ total }}</td>
-                            <td>{{ vitoria }}</td>
-                            <td>{{ empate }}</td>
-                            <td>{{ derrota }}</td>
-                            <th>{{ gols_favor }}</th>
-                            <th>{{ gols_contra }}</th>
-                            <th>{{ saldo }}</th>
+                            <td style="color: dimgrey">{{ total }}</td>
+                            <td style="color: green">{{ vitoria }}</td>
+                            <td style="color:dimgrey">{{ empate }}</td>
+                            <td style="color: red">{{ derrota }}</td>
+                            <td style="color: green">{{ gols_favor }}</td>
+                            <td style="color: red">{{ gols_contra }}</td>
+                            <td style="color: {% if saldo > 0 %}green{% else %}red{% endif %}">
+                                {{ saldo }}
+                            </td>
                         </tr>
 
                     </table>
@@ -53,6 +57,7 @@
                             {% endfor %}
                          </tbody>
                     </table>
+                    <a href="#">Ver lista completa</a>
                 </div>
             </div>
         </div>
@@ -80,6 +85,7 @@
                             {% endfor %}
                          </tbody>
                     </table>
+                    <a href="#">Ver lista completa</a>
                 </div>
             </div>
         </div>
@@ -104,6 +110,7 @@
                             {% endfor %}
                          </tbody>
                     </table>
+                    <a href="#">Ver lista completa</a>
                 </div>
             </div>
         </div>
@@ -129,6 +136,7 @@
                             {% endfor %}
                          </tbody>
                     </table>
+                    <a href="#">Ver lista completa</a>
                 </div>
             </div>
         </div>
@@ -154,6 +162,7 @@
                             {% endfor %}
                          </tbody>
                     </table>
+                    <a href="#">Ver lista completa</a>
                 </div>
             </div>
         </div>
@@ -178,6 +187,7 @@
                             {% endfor %}
                          </tbody>
                     </table>
+                    <a href="#">Ver lista completa</a>
                 </div>
             </div>
         </div>
