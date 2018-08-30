@@ -1,4 +1,5 @@
 from django.db import models, connection
+from datetime import date
 
 
 class Atleta(models.Model):
@@ -7,9 +8,20 @@ class Atleta(models.Model):
     apelido = models.CharField(max_length=50)
     data_nascimento = models.DateField(null=True)
     local_nascimento = models.CharField(max_length=50)
-    imagem = models.ImageField(default="/adversarios/sem-foto.png", upload_to='adversarios', null=True,
-                                          blank=True)
+    imagem = models.ImageField(default="/adversarios/sem-foto.png", upload_to='adversarios', null=True, blank=True)
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
+
+    @property
+    def idade(self):
+        hoje = date.today()
+        try:
+            birthday = self.data_nascimento.replace(year=hoje.year)
+        except ValueError:  # raised when birth date is February 29 and the current year is not a leap year
+            birthday = self.data_nascimento.replace(year=hoje.year, month=hoje.month + 1, day=1)
+        if birthday > hoje:
+            return hoje.year - self.data_nascimento.year - 1
+        else:
+            return hoje.year - self.data_nascimento.year
 
     @property
     def gols(self):

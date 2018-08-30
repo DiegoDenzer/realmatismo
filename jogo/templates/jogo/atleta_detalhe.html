@@ -17,6 +17,8 @@
                             <br>
                             Apelido: {{ atleta.apelido }}
                             <br>
+                            Idade : {{ atleta.idade }}
+                            <br>
                             Número: {% if atleta.numero_camisa is None %}
                                         Sem número
                                     {% else %}
@@ -35,16 +37,15 @@
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title center">Dados Atleta</span>
-                    Jogos Disputados: {{ atleta.jogos_realizados }}
-                    Gols: {{ atleta.gols }}
-                    Assistencias: {{ atleta.assistencia }}
-                    Defesas: {{ atleta.defesa }}
-                    Roubos: {{ atleta.roubo }}
-                    Minutos Jogados: {{ atleta.minutos }}
+                    Jogos Disputados: {{ atleta.jogos_realizados }}<br>
+                    Gols: {{ atleta.gols }}<br>
+                    Assistencias: {{ atleta.assistencia }}<br>
+                    Defesas: {{ atleta.defesa }}<br>
+                    Roubos: {{ atleta.roubo }}<br>
+                    Minutos Jogados: {{ atleta.minutos }}<br>
                 </div>
             </div>
         </div>
     </div>
-
 
 {% endblock %}

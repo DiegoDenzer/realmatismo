@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}Atletas|Realmatismo Fc {% endblock %}
 {% block main %}
-    <ul class="collection">
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>Atletas</h4></li>
     {% for atleta in atletas %}
         <li class="collection-item avatar">
             <img src="media/{{ atleta.imagem }}" alt="" class="circle">
-            <span class="title">{{ atleta.nome }}</span>
-            <a href="{% url 'atleta' atleta.pk %}"> Detalhes </a>
+            <span class="title">{{ atleta.nome }} "{{ atleta.apelido }}" {{ atleta.sobrenome }}</span>
+            <a href="{% url 'atleta' atleta.pk %}" class="secondary-content"><i class="fas fa-user" aria-hidden="true"></i> Detalhes</a>
         </li>
     {% empty %}
         Sem atletas

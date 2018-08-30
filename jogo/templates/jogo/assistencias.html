@@ -1,0 +1,27 @@
+<div class="col s12 m4 l4">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Assistencias</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Assis.</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {% for atleta in lista %}
+                                {% if atleta.assistencia  %}
+
+                                {% endif %}
+                                <tr>
+                                    <td>{{ atleta.nome }}</td>
+                                    <td>{{ atleta.assistencia }}</td>
+                                </tr>
+                            {% endfor %}
+                         </tbody>
+                    </table>
+                    <a href="{% url 'assistencias' %}">Ver lista completa</a>
+                </div>
+            </div>
+        </div>

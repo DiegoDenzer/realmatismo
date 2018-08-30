@@ -5,27 +5,31 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title">Jogos</span>
                     {% if jogos.count > 0 %}
-                        <ul class="collection" style="border: none">
+                        <ul class="collection with-header" style="border: none">
+                            <li class="collection-header"><h4>Jogos</h4></li>
                             {% for jogo in jogos %}
                                 <li class="collection-item">
-                                      <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
                                         <h6 class="center-align" style="color: {% if jogo.placar_real > jogo.placar_adversario %}#0f9d58
                                         {% endif %}{% if jogo.placar_real < jogo.placar_adversario %}red
-                                        {% endif %} ">  REALMATISMO FC
+                                        {% endif %} ">
+                                          REALMATISMO FC
                                           {% if jogo.placar_real is not None %}
                                             {{ jogo.placar_real }}
                                           {% endif %}
+                                          <br>
                                           X
+                                          <br>
+                                          {{ jogo.adversario.nome }}
                                           {% if jogo.placar_adversario is not None %}
                                             {{ jogo.placar_adversario }}
                                           {% endif %}
-                                          {{ jogo.adversario.nome }} -
-                                          {{ jogo.data|date:"d M Y" }}
-
                                         </h6>
-                                      </a>
+                                <br>
+                                <div class="center-align">
+                                 <a href="{% url 'jogo' jogo.pk %}" class="center" style="text-decoration: none;color: black">
+                                     <i class="fas fa-futbol fa-lg" aria-hidden="true"></i>Detalhes</a>
+                                </div>
                                 </li>
 
                             {% endfor %}

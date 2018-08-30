@@ -150,7 +150,7 @@ class Assistencias(View):
         return render(self.request, self.template, {'lista': lista})
 
 
-class roubadas(View):
+class Roubadas(View):
     template = 'jogo/roubadas.html'
 
     def get(self, *args, **kwargs):
@@ -162,7 +162,7 @@ class roubadas(View):
         return render(self.request, self.template, {'lista': lista})
 
 
-class defesas(View):
+class Defesas(View):
     template = 'jogo/defesas.html'
 
     def get(self, *args, **kwargs):

@@ -1,0 +1,24 @@
+<div class="col s12 m4 l4">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Roubadas</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Roubadas</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {% for atleta in ladroes %}
+                                <tr>
+                                    <td>{{ atleta.nome }}</td>
+                                    <td>{{ atleta.roubo }}</td>
+                                </tr>
+                            {% endfor %}
+                         </tbody>
+                    </table>
+                    <a href="{% url 'roubadas' %}">Ver lista completa</a>
+                </div>
+            </div>
+        </div>

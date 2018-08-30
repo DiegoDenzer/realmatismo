@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Minutos|Realmatismo Fc {% endblock %}
+{% block main %}
+    <div class="col s12 m4 l4">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title">Minutos Jogados</span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Minutos</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                            {% for atleta in lista %}
+                                <tr>
+                                    <td>{{ atleta.nome }}</td>
+                                    <td>{{ atleta.minutos }}</td>
+                                </tr>
+                            {% endfor %}
+                         </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+{% endblock %}
