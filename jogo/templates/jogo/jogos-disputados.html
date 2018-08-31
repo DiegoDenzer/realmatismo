@@ -1,30 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}Minutos|Realmatismo Fc {% endblock %}
 {% block main %}
-<div class="col s12 m4 l4">
+     <div class="col s12 m4 l4">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title">Assistencias</span>
+                    <span class="card-title">Jogos Disputados</span>
                     <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Assis.</th>
+                                <th>Jogos</th>
                             </tr>
                         </thead>
                          <tbody>
                             {% for atleta in lista %}
-                                {% if atleta.assistencia  %}
-
-                                {% endif %}
                                 <tr>
                                     <td>{{ atleta.nome }}</td>
-                                    <td>{{ atleta.assistencia }}</td>
+                                    <td>{{ atleta.jogos_realizados }}</td>
                                 </tr>
                             {% endfor %}
                          </tbody>
                     </table>
-                    <a href="{% url 'assistencias' %}">Ver lista completa</a>
                 </div>
             </div>
         </div>

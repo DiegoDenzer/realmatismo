@@ -196,3 +196,10 @@ class Minutos(View):
             dic[jogador] = jogador.minutos
         lista = sorted(dic, key=dic.__getitem__, reverse=True)
         return render(self.request, self.template, {'lista': lista})
+
+
+class Galeria(View):
+    template = 'jogo/galeria.html'
+
+    def get(self, request):
+        return render(request, self.template)

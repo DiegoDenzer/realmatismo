@@ -60,11 +60,22 @@
                     {% if noticias.count > 0 %}
                         <ul class="collection" style="border: none">
                         {% for noticia in noticias %}
-                            <li class="collection-item avatar">
-                              <span class="title">{{ noticia.titulo }}</span>
-                              <p>{{ noticia.corpo }} <br>
-                              </p>
-                              <a href="{% url 'noticia' noticia.pk %}" class="secondary-content"><i class="material-icons">send</i></a>
+                            <li class="collection-item">
+                                <div class="row">
+
+                                    <div class="col s9">
+                                        <div class="left-align">
+                                            <span class="title">{{ noticia.titulo }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col s3">
+                                        <div class="center-align">
+                                            <a href="{% url 'noticia' noticia.pk %}" class="center" style="text-decoration: none;color: black">
+                                                <i class="fas fa-newspaper fa-lg" aria-hidden="true"></i>Detalhes</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         {% endfor %}
                           </ul>
