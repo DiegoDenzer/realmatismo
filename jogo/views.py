@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from jogo.models import Jogo, Atleta, Noticia, JogoAtleta
+from jogo.models import Jogo, Atleta, Noticia, JogoAtleta, Galeria
 
 
 class Home(View):
@@ -198,8 +198,13 @@ class Minutos(View):
         return render(self.request, self.template, {'lista': lista})
 
 
-class Galeria(View):
-    template = 'jogo/galeria.html'
+class ListaAtletas(ListView):
+    template_name = 'jogo/atletas.html'
+    model = Atleta
+    context_object_name = 'atletas'
 
-    def get(self, request):
-        return render(request, self.template)
+
+class Galeria(ListView):
+    template_name = 'jogo/galeria.html'
+    model = Galeria
+    context_object_name = 'fotos'

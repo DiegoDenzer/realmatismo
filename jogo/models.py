@@ -166,3 +166,14 @@ class Noticia(models.Model):
         db_table = 'noticia'
         verbose_name = "Noticia"
         verbose_name_plural = "Noticias"
+
+
+class Galeria(models.Model):
+
+    nome = models.CharField(max_length=100)
+    foto = models.ImageField(upload_to='galeria')
+
+    class Meta:
+        db_table = 'galeria'
+        verbose_name = "Galeria"
+        verbose_name_plural = "Galeria"

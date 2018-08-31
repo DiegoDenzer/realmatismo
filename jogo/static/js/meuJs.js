@@ -9,3 +9,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('.materialboxed').materialbox();
 });
+
+var instance = M.Materialbox.getInstance(elem);
+  instance.open();
+  instance.close();

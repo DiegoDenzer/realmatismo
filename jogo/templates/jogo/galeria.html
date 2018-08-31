@@ -6,10 +6,16 @@
             <div class="card">
                 <div class="card-content">
                     <span class="card-title center">Galeria</span>
-
-                    <img class="materialboxed responsive-img" src="../media/adversarios/sem-foto.jpg">
-                    <img class="materialboxed responsive-img" src="../media/adversarios/sem_escudo.png.jpg">
-
+                    <ul>
+                        {% for foto in fotos %}
+                            <li style="list-style:none; display: inline-block;">
+                                <p class="z-depth-3">
+                                <img class="materialboxed responsive-img" data-caption="{{ foto.nome }}" src="../media/{{ foto.foto }}">
+                                </p>
+                                <hr class="hidden">
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
