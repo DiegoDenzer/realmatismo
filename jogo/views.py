@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.db.models import Sum
+from django.db.models import Sum, Min, Max, Count
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
@@ -65,18 +65,6 @@ class Estatisticas(View):
     template = 'jogo/estatistica.html'
 
     def get(self, *args, **kwargs):
-        vitoria = 0
-        derrota = 0
-        empate = 0
-
-        for jogo in Jogo.objects.filter(placar_real__isnull=False, placar_adversario__isnull=False):
-
-            if jogo.placar_real > jogo.placar_adversario:
-                vitoria += 1
-            elif jogo.placar_adversario > jogo.placar_real:
-                derrota += 1
-            else:
-                empate += 1
 
         jogadores = Atleta.objects.all()
 
@@ -102,10 +90,6 @@ class Estatisticas(View):
         lista_jogos = sorted(participacoes, key=participacoes.__getitem__, reverse=True)
         lista_minutos = sorted(minutos, key=minutos.__getitem__, reverse=True)
 
-        favor = Jogo.objects.all().aggregate(Sum('placar_real'))
-        contra = Jogo.objects.all().aggregate(Sum('placar_adversario'))
-        saldo = favor['placar_real__sum'] - contra['placar_adversario__sum']
-
         data = {
             # Dados Atletas...
             'artilharia': lista_artilheiros[:3],
@@ -114,14 +98,7 @@ class Estatisticas(View):
             'defesas': lista_defesas[:3],
             'jogos_jogados': lista_jogos[:3],
             'minutos': lista_minutos[:3],
-            # Dados Time...
-            'gols_favor': favor['placar_real__sum'],
-            'gols_contra': contra['placar_adversario__sum'],
-            'vitoria': vitoria,
-            'derrota': derrota,
-            'empate': empate,
-            'total': vitoria + derrota + empate,
-            'saldo': saldo
+
         }
         return render(self.request, self.template, data)
 
@@ -208,3 +185,62 @@ class Galeria(ListView):
     template_name = 'jogo/galeria.html'
     model = Galeria
     context_object_name = 'fotos'
+
+
+class TimeList(View):
+
+    template = 'jogo/time.html'
+
+    def get(self, *args, **kwargs):
+        # Dados Time...
+        vitoria = 0
+        derrota = 0
+        empate = 0
+        media_sofridos = 0
+        jogos = Jogo.objects.filter(placar_real__isnull=False, placar_adversario__isnull=False)
+        for jogo in jogos:
+
+            media_sofridos += jogo.placar_adversario
+
+            if jogo.placar_real > jogo.placar_adversario:
+                vitoria += 1
+            elif jogo.placar_adversario > jogo.placar_real:
+                derrota += 1
+            else:
+                empate += 1
+
+        favor = Jogo.objects.all().aggregate(Sum('placar_real'))['placar_real__sum']
+        contra = Jogo.objects.all().aggregate(Sum('placar_adversario'))['placar_adversario__sum']
+        saldo = favor - contra
+
+        # Estatisticas e curiosidades...
+        velho = Atleta.objects.all().aggregate(Min('data_nascimento'))['data_nascimento__min']
+        jogador_velho = Atleta.objects.get(data_nascimento=velho)
+
+        novo = Atleta.objects.all().aggregate(Max('data_nascimento'))['data_nascimento__max']
+        jogador_novo = Atleta.objects.get(data_nascimento=novo)
+
+        jogadores = Atleta.objects.all()
+        media_idade = 0
+
+        for jogador in jogadores:
+            media_idade += jogador.idade
+
+
+        data = {
+        # Dados Time...
+            'gols_favor': favor,
+            'gols_contra': contra,
+            'vitoria': vitoria,
+            'derrota': derrota,
+            'empate': empate,
+            'total': vitoria + derrota + empate,
+            'saldo': saldo,
+            'media_gols': favor / jogos.count(),
+            'media_sofridos': contra / jogos.count(),
+        # Coisas alway
+            'jogador_novo': jogador_novo,
+            'jogador_velho': jogador_velho,
+            'media_idade': media_idade / jogadores.count()
+        }
+        return render(self.request, self.template, data)

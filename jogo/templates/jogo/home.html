@@ -41,6 +41,10 @@
                                   <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
                                   <span class="title">{{ jogo.adversario.nome }}</span>
                                   <p>{{ jogo.data }} <br>
+                                      {% if jogo.placar_real is not None %}
+                                          Placar: {{ jogo.placar_real }} X {{ jogo.placar_adversario }}
+                                      {% endif %}
+
                                   </p>
                                 </a>
                             </li>

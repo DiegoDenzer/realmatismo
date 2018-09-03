@@ -1,16 +1,32 @@
 {% extends 'base.html' %}
 {% block main %}
-
     <div class="row">
-        <span class="card-title">Realmatismo FC</span>
-    </div>
-
-    <div class="row">
-        <div class="col s12 m4">
+        <div class="col s12 m12">
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title">Estatisticas</span>
-                    ...
+                    <table>
+                        <tr>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>E</th>
+                            <th>D</th>
+                            <th>GP</th>
+                            <th>GS</th>
+                            <th>S</th>
+                        </tr>
+                        <tr>
+                            <td style="color: dimgrey">{{ total }}</td>
+                            <td style="color: green">{{ vitoria }}</td>
+                            <td style="color:dimgrey">{{ empate }}</td>
+                            <td style="color: red">{{ derrota }}</td>
+                            <td style="color: green">{{ gols_favor }}</td>
+                            <td style="color: red">{{ gols_contra }}</td>
+                            <td style="color: {% if saldo > 0 %}green{% else %}red{% endif %}">
+                                {{ saldo }}
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -20,8 +36,12 @@
         <div class="col s12 m4">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title">Curiosidade</span>
-                    ...
+                    <span class="card-title">Curiosidades</span>
+                    Jogador Mais Velho: {{ jogador_velho.nome }} <br>
+                    Jogador Mais Novo:  {{ jogador_novo.nome }}   <br>
+                    Media idade: {{ media_idade }} <br>
+                    Media de gols: {{ media_gols }} <br>
+                    Media de gols Sofridos: {{ media_sofridos }}
                 </div>
             </div>
         </div>
