@@ -16,7 +16,7 @@ class Atleta(models.Model):
         hoje = date.today()
         try:
             birthday = self.data_nascimento.replace(year=hoje.year)
-        except ValueError:  # raised when birth date is February 29 and the current year is not a leap year
+        except ValueError:  # Fevereiro 29
             birthday = self.data_nascimento.replace(year=hoje.year, month=hoje.month + 1, day=1)
         if birthday > hoje:
             return hoje.year - self.data_nascimento.year - 1

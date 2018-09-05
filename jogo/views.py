@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.core.paginator import Paginator
 from django.db.models import Sum, Min, Max, Count
 from django.shortcuts import render
 from django.views import View
@@ -31,6 +32,7 @@ class ListaAtletas(ListView):
     context_object_name = 'atletas'
 
 
+
 class ListaNoticias(ListView):
     template_name = 'jogo/noticias.html'
     model = Noticia
@@ -39,7 +41,7 @@ class ListaNoticias(ListView):
 
 class NoticiaDetail(DetailView):
     context_object_name = 'noticia'
-    model = Atleta
+    model = Noticia
     template_name = 'jogo/noticia.html'
 
 
@@ -56,9 +58,13 @@ class JogoDetail(DetailView):
 
 
 class ListaJogos(View):
+
     def get(self, *args, **kwargs):
         jogos = Jogo.objects.order_by('-data')
-        return render(self.request, 'jogo/jogos.html', {'jogos': jogos})
+        paginator = Paginator(jogos, 2)  # Show 25 contacts per page
+        page = self.request.GET.get('page')
+        contacts = paginator.get_page(page)
+        return render(self.request, 'jogo/jogos.html', {'jogos': contacts})
 
 
 class Estatisticas(View):

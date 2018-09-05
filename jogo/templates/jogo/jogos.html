@@ -5,7 +5,7 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    {% if jogos.count > 0 %}
+
                         <ul class="collection with-header" style="border: none">
                             <li class="collection-header"><h4>Jogos</h4></li>
                             {% for jogo in jogos %}
@@ -34,9 +34,47 @@
 
                             {% endfor %}
                         </ul>
-                    {% else %}
-                        Sem Jogos
-                    {% endif %}
+
+                        <div row>
+                            <div class="center-align">
+                                <ul class="pagination">
+                                    <li>
+                                        {% if jogos.has_previous %}
+                                            <a href="?page={{ jogos.previous_page_number }}">
+                                                <i class="material-icons">chevron_left</i>
+                                            </a>
+                                        {% else %}
+                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                                        {% endif %}
+
+                                    </li>
+
+                                    {% for i in jogos.paginator.page_range %}
+                                        {% if jogos.number == i %}
+                                            <li class="active"><a href="#!">{{ i }}</a></li>
+                                        {% else %}
+                                            <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                     {% if jogos.has_next %}
+
+                                         <li class="waves-effect">
+                                             <a href="?page={{ jogos.next_page_number }}">
+                                                 <i class="fas fa-step-forward" aria-hidden="true"></i>
+                                             </a>
+
+                                             <a href="?page={{ jogos.paginator.num_pages }}">
+                                                 <i class="fas fa-forward" aria-hidden="true"></i>
+                                             </a>
+                                         </li>
+                                         {% else %}
+                                                <li class="disabled"><a href="#!"><i class="fas fa-step-forward" aria-hidden="true"></i></a></li>
+                                                <i class="fas fa-forward" aria-hidden="true"></i>
+                                     {% endif %}
+                                </ul>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
