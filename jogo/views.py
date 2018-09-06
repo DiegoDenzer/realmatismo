@@ -61,7 +61,7 @@ class ListaJogos(View):
 
     def get(self, *args, **kwargs):
         jogos = Jogo.objects.order_by('-data')
-        paginator = Paginator(jogos, 2)  # Show 25 contacts per page
+        paginator = Paginator(jogos, 3)  # Show 25 contacts per page
         page = self.request.GET.get('page')
         contacts = paginator.get_page(page)
         return render(self.request, 'jogo/jogos.html', {'jogos': contacts})
