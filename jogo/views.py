@@ -242,11 +242,11 @@ class TimeList(View):
             'empate': empate,
             'total': vitoria + derrota + empate,
             'saldo': saldo,
-            'media_gols': favor / jogos.count(),
-            'media_sofridos': contra / jogos.count(),
+            'media_gols': round(favor / jogos.count(),1),
+            'media_sofridos': round(contra / jogos.count(),1),
         # Coisas alway
             'jogador_novo': jogador_novo,
             'jogador_velho': jogador_velho,
-            'media_idade': media_idade / jogadores.count()
+            'media_idade': round(media_idade / jogadores.count(), 1)
         }
         return render(self.request, self.template, data)

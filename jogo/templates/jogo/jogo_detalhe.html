@@ -52,7 +52,7 @@
                                     <h5 class="center">Participantes: </h5><br>
                                     {% for t in jogo.relacionados %}
                                         {% if t.nome is not None%}
-                                            {{ t.nome }},
+                                            {{ t.nome }}- {{ t.gols }},
                                         {% else %}
                                         {% endif %}
 
