@@ -138,7 +138,6 @@ class Jogo(models.Model):
         verbose_name = "Jogo"
         verbose_name_plural = "Jogos"
 
-
 class JogoAtleta(models.Model):
     jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE, related_name='jogadores')
     atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE)

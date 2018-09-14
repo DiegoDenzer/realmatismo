@@ -61,7 +61,7 @@ class ListaJogos(View):
 
     def get(self, *args, **kwargs):
         jogos = Jogo.objects.order_by('-data')
-        paginator = Paginator(jogos, 3)  # Show 25 contacts per page
+        paginator = Paginator(jogos, 3)
         page = self.request.GET.get('page')
         contacts = paginator.get_page(page)
         return render(self.request, 'jogo/jogos.html', {'jogos': contacts})
@@ -218,7 +218,11 @@ class TimeList(View):
         favor = Jogo.objects.all().aggregate(Sum('placar_real'))['placar_real__sum']
         contra = Jogo.objects.all().aggregate(Sum('placar_adversario'))['placar_adversario__sum']
         saldo = favor - contra
-
+        string = ''
+        ver  = Jogo.objects.raw('''SELECT *,max(placar_adversario - placar_real) as maior from jogo''')
+        for i in ver:
+            string = f'Adversario: {i.adversario} placar:{placar_real} X {i.placar_adversario}'
+        print(string)
         # Estatisticas e curiosidades...
         velho = Atleta.objects.all().aggregate(Min('data_nascimento'))['data_nascimento__min']
         jogador_velho = Atleta.objects.get(data_nascimento=velho)
