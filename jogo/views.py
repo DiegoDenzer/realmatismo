@@ -23,6 +23,7 @@ class Home(View):
         noticias = Noticia.objects.order_by('data_inclusao')
         data['noticias'] = noticias[:3]
 
+
         return render(self.request, 'jogo/home.html', data)
 
 
@@ -218,11 +219,20 @@ class TimeList(View):
         favor = Jogo.objects.all().aggregate(Sum('placar_real'))['placar_real__sum']
         contra = Jogo.objects.all().aggregate(Sum('placar_adversario'))['placar_adversario__sum']
         saldo = favor - contra
-        string = ''
-        ver  = Jogo.objects.raw('''SELECT *,max(placar_adversario - placar_real) as maior from jogo''')
-        for i in ver:
-            string = f'Adversario: {i.adversario} placar:{placar_real} X {i.placar_adversario}'
-        print(string)
+
+        maior_derrota = ''
+        maior_vitoria = ''
+        jogos_derrota = Jogo.objects.raw('''SELECT *,max(placar_adversario - placar_real) as maior from jogo''')
+        jogos_vitoria = Jogo.objects.raw('''SELECT *,max(placar_real -placar_adversario) as maior from jogo''')
+
+        for i in jogos_derrota:
+            maior_derrota = f'{i.placar_real} X {i.placar_adversario} - {i.adversario}'
+
+        for i in jogos_vitoria:
+            maior_vitoria = f'{i.placar_real} X {i.placar_adversario} - {i.adversario}'
+
+
+
         # Estatisticas e curiosidades...
         velho = Atleta.objects.all().aggregate(Min('data_nascimento'))['data_nascimento__min']
         jogador_velho = Atleta.objects.get(data_nascimento=velho)
@@ -236,6 +246,19 @@ class TimeList(View):
         for jogador in jogadores:
             media_idade += jogador.idade
 
+        now = datetime.now()
+        jogos_anteriores = Jogo.objects.order_by('-data')\
+                                       .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False)
+
+        performace = []
+        for jogo in jogos_anteriores[:5]:
+
+            if jogo.placar_real > jogo.placar_adversario:
+                performace.append('V')
+            elif jogo.placar_adversario > jogo.placar_real:
+                performace.append('D')
+            else:
+                performace.append('E')
 
         data = {
         # Dados Time...
@@ -246,11 +269,14 @@ class TimeList(View):
             'empate': empate,
             'total': vitoria + derrota + empate,
             'saldo': saldo,
-            'media_gols': round(favor / jogos.count(),1),
-            'media_sofridos': round(contra / jogos.count(),1),
+            'media_gols': round(favor / jogos.count(), 1),
+            'media_sofridos': round(contra / jogos.count(), 1),
         # Coisas alway
             'jogador_novo': jogador_novo,
             'jogador_velho': jogador_velho,
-            'media_idade': round(media_idade / jogadores.count(), 1)
+            'media_idade': round(media_idade / jogadores.count(), 1),
+            'maior_derrota': maior_derrota,
+            'maior_vitoria': maior_vitoria,
+            'performace': performace
         }
         return render(self.request, self.template, data)
