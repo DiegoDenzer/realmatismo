@@ -43,7 +43,7 @@
 
                             {% for p in performace %}
                                 <li>
-                                <div class="card {% if p == 'V' %}green{% elif p == 'D'%}red{% else %}blue{% endif %}" style="width: 40px">
+                                <div class="card {% if p == 'V' %}green{% elif p == 'D'%}red{% else %}grey{% endif %}" style="width: 40px">
                                     {{ p }}
                                 </div>
                                 </li>
@@ -55,6 +55,7 @@
             <div class="card hoverable">
                 <div class="card-content">
                     <span class="card-title">Curiosidades</span>
+                    <hr style="color: #0D47A1">
                     Maior Vitoria: {{ maior_vitoria }} <br>
                     Maior Derrota: {{ maior_derrota }} <br>
                     Jogador Mais Velho: {{ jogador_velho.nome }} <br>
