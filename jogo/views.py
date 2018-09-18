@@ -20,7 +20,7 @@ class Home(View):
         proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
         data['proximos_jogos'] = proximos_jogos[:3]
 
-        noticias = Noticia.objects.order_by('data_inclusao')
+        noticias = Noticia.objects.order_by('-data_inclusao')
         data['noticias'] = noticias[:3]
 
 
