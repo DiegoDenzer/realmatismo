@@ -5,43 +5,30 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-
-
-                            <h4>Jogos</h4>
-
-                            {% for jogo in jogos %}
-                                    <div class="row">
-                                        <div>
-                                            <h6>Realmatismo FC</h6>
-                                        </div>
-
-                                        <div>
-                                             <ul class="pagination">
-                                                <li>
-                                                {% if jogo.placar_real is not None %}
-                                                    <div style="width: 20px" class="card {% if jogo.placar_real > jogo.placar_adversario %}green{% elif jogo.placar_real < jogo.placar_adversario %}red{% else %}grey{% endif %}">
-                                                        {{ jogo.placar_real }}
-                                                    </div>
-                                                {% endif %}
-
-                                                <div style="width: 20px" class="card"> X </div>
-
-                                                {% if jogo.placar_adversario is not None %}
-                                                    <div style="width: 20px" class="card {% if jogo.placar_real > jogo.placar_adversario %}red{% elif jogo.placar_real < jogo.placar_adversario %}green{% else %}grey{% endif %}">
-                                                        {{ jogo.placar_adversario }}
-                                                    </div>
-                                                {% endif %}
-
-                                                </li>
-                                             </ul>
-                                        </div>
-
-                                        <div>
-                                            <h6> {{ jogo.adversario.nome }}</h6>
-                                        </div>
-                                    </div>
-                            {% endfor %}
-
+                    <div class="row">
+                        <h4>Jogos</h4>
+                    </div>
+                    {% for jogo in jogos %}
+                        <div class="row">
+                            <div class="center center-align card {% if jogo.placar_real > jogo.placar_adversario %}green
+                                             {% elif jogo.placar_real < jogo.placar_adversario %}red
+                                             {% else %}grey
+                                             {% endif %}">
+                                <h6 style="padding-top: 20px; padding-bottom: 20px">
+                                    <a href="{% url 'jogo' jogo.pk%}"><i class="fas fa-pencil"></i></a>
+                                    Realmatismo FC
+                                    {% if jogo.placar_real is not None %}
+                                        {{ jogo.placar_real }}
+                                    {% endif %}
+                                    X
+                                    {% if jogo.placar_adversario is not None %}
+                                        {{ jogo.placar_adversario }}
+                                    {% endif %}
+                                    {{ jogo.adversario.nome }}
+                                </h6>
+                            </div>
+                        </div>
+                    {% endfor %}
 
                         <div row>
                             <div class="center-align">
