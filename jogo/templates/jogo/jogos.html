@@ -30,6 +30,7 @@
                                     {% endif %}
                                     {{ jogo.adversario.nome }}
                                 </h6>
+                                <h6>{{ jogo.data|date:"d M Y" }} - {{ jogo.local.nome }}</h6>
                             </div>
                         </div>
                     {% endfor %}
