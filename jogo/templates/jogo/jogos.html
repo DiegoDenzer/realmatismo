@@ -5,8 +5,9 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <div class="row">
+                    <div class="row center">
                         <h4>Jogos</h4>
+                        <hr class="deep-orange">
                     </div>
                     {% for jogo in jogos %}
                         <div class="row">
@@ -14,8 +15,11 @@
                                              {% elif jogo.placar_real < jogo.placar_adversario %}red
                                              {% else %}grey
                                              {% endif %}">
+
                                 <h6 style="padding-top: 20px; padding-bottom: 20px">
-                                    <a href="{% url 'jogo' jogo.pk%}"><i class="fas fa-pencil"></i></a>
+                                    <a href="{% url 'jogo' jogo.pk%}" class="pulse">
+                                      <i class="fas fa-pencil-alt" aria-hidden="true" style="color: black"></i> </a>
+                                    </a>
                                     Realmatismo FC
                                     {% if jogo.placar_real is not None %}
                                         {{ jogo.placar_real }}
@@ -49,7 +53,7 @@
 
                                     {% for i in jogos.paginator.page_range %}
                                         {% if jogos.number == i %}
-                                            <li class="active"><a href="#!">{{ i }}</a></li>
+                                            <li class="active deep-orange"><a href="#!">{{ i }}</a></li>
                                         {% else %}
                                             <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
                                         {% endif %}

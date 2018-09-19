@@ -4,7 +4,9 @@
         <div class="col s12 m12">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title">Estatisticas</span>
+                    <span class="card-title center">Estatisticas
+                        <hr class="deep-orange">
+                    </span>
                 
                     <table>
                         <tr>
@@ -38,13 +40,15 @@
 
              <div class="card hoverable">
                 <div class="card-content">
-                     <span class="card-title">Últimos Jogos</span>
+                     <span class="card-title center">Últimos Jogos
+                         <hr class="deep-orange">
+                     </span>
                     <ul class="pagination">
 
                             {% for p in performace %}
                                 <li>
-                                <div class="card {% if p == 'V' %}green{% elif p == 'D'%}red{% else %}grey{% endif %}" style="width: 40px">
-                                    {{ p }}
+                                <div class="card {% if p == 'V' %}green{% elif p == 'D'%}red{% else %}grey{% endif %}">
+                                    <h6 style="margin: 10px; padding: 10px">{{ p }}</h6>
                                 </div>
                                 </li>
                             {% endfor %}
@@ -56,8 +60,8 @@
         <div class="col s12 m4 l4">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title">Curiosidades</span>
-                    <hr style="color: #0D47A1">
+                    <span class="card-title">Curiosidades <hr class="deep-orange"></span>
+
                     Maior Vitoria: {{ maior_vitoria }} <br>
                     Maior Derrota: {{ maior_derrota }} <br>
                     Jogador Mais Velho: {{ jogador_velho.nome }} <br>

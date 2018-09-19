@@ -6,11 +6,11 @@
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
-                    <span class="card-title center-align">{{ jogo.adversario.nome }}</span>
                          {% if jogo.placar_real is None %}
-                             Jogo não realizado
+                             Jogo não realizado.
                              {% else %}
                              <h5 class="center">Dados do jogo</h5><br>
+                             <hr class="deep-orange"/>
                                 <div class="row">
                                     <div class="col s4">
                                         <div class="center">
@@ -48,16 +48,41 @@
                                 <div class="row">
                                     Data: {{ jogo.data|date:"d M Y" }}
                                 </div>
+
+                                <hr class="deep-orange"/>
+
                                 <div class="row">
                                     <h5 class="center">Participantes: </h5><br>
-                                    {% for t in jogo.relacionados %}
-                                        {% if t.nome is not None%}
-                                            {{ t.nome }} ,
-                                        {% else %}
-                                        {% endif %}
-
+                                     <table>
+                                        <thead>
+                                            <th>Nome</th>
+                                            <th>G</th>
+                                            <th>A</th>
+                                        </thead>
+                                         <tbody>
+                                    {% for t in jogo.jogadores.all %}
+                                            <tr>
+                                                <td>
+                                                    {{ t.atleta.nome }}
+                                                </td>
+                                                <td>
+                                                    {% if t.gols is not None %}
+                                                        {{ t.gols }}
+                                                    {% else %}
+                                                        0
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if t.assistencia is not None %}
+                                                        {{ t.assistencia }}
+                                                    {% else %}
+                                                        0
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
                                     {% endfor %}
-
+                                     </tbody>
+                                     </table>
                                 </div>
                          {% endif %}
 

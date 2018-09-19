@@ -32,6 +32,8 @@ class ListaAtletas(ListView):
     model = Atleta
     context_object_name = 'atletas'
 
+    def get_queryset(self):
+        return Atleta.objects.all().order_by('nome')
 
 
 class ListaNoticias(ListView):
