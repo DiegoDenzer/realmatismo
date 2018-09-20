@@ -15,13 +15,13 @@ class Home(View):
         now = datetime.now()
 
         jogos_anteriores = Jogo.objects.order_by('-data').filter(data__lt=now)
-        data['jogos_anteriores'] = jogos_anteriores[:3]
+        data['jogos_anteriores'] = jogos_anteriores[:1]
 
         proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
-        data['proximos_jogos'] = proximos_jogos[:3]
+        data['proximos_jogos'] = proximos_jogos[:1]
 
         noticias = Noticia.objects.order_by('-data_inclusao')
-        data['noticias'] = noticias[:3]
+        data['noticias'] = noticias[:1]
 
 
         return render(self.request, 'jogo/home.html', data)
@@ -33,7 +33,7 @@ class ListaAtletas(ListView):
     context_object_name = 'atletas'
 
     def get_queryset(self):
-        return Atleta.objects.all().order_by('nome')
+        return Atleta.objects.order_by('nome')
 
 
 class ListaNoticias(ListView):
