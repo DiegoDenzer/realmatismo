@@ -10,6 +10,15 @@ class JogadorTabular(admin.TabularInline):
 
 class JogoAdmin(admin.ModelAdmin):
    inlines = (JogadorTabular,)
+   list_display = ['data', 'adversario', 'placar']
+
+   def placar(self, obj):
+       if obj.placar_adversario is not None:
+           return f'{obj.placar_real} X {obj.placar_adversario}'
+
+       return 'Jogo não realizado'
+
+   placar.short_description = 'placar'
 
 
 class AtletaAdmin(admin.ModelAdmin):

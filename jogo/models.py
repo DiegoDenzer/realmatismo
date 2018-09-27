@@ -134,6 +134,7 @@ class Jogo(models.Model):
         return final
 
     class Meta:
+        ordering = ('-data',)
         db_table = 'jogo'
         verbose_name = "Jogo"
         verbose_name_plural = "Jogos"
