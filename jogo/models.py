@@ -15,10 +15,10 @@ class Atleta(models.Model):
     def idade(self):
         hoje = date.today()
         try:
-            birthday = self.data_nascimento.replace(year=hoje.year)
+            aniversario = self.data_nascimento.replace(year=hoje.year)
         except ValueError:  # Fevereiro 29
-            birthday = self.data_nascimento.replace(year=hoje.year, month=hoje.month + 1, day=1)
-        if birthday > hoje:
+            aniversario = self.data_nascimento.replace(year=hoje.year, month=hoje.month + 1, day=1)
+        if aniversario > hoje:
             return hoje.year - self.data_nascimento.year - 1
         else:
             return hoje.year - self.data_nascimento.year
@@ -75,6 +75,10 @@ class Atleta(models.Model):
     @property
     def jogos_realizados(self):
         return JogoAtleta.objects.filter(atleta=self).count()
+
+
+
+
 
     class Meta:
         db_table = 'atleta'

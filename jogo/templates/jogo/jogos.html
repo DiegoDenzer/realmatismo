@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Jogos|Realmatismo Fc {% endblock %}
 {% block main %}
     <div class="row">
@@ -20,7 +21,7 @@
                                     <a href="{% url 'jogo' jogo.pk%}" class="pulse">
                                       <i class="fas fa-pencil-alt" aria-hidden="true" style="color: black"></i> </a>
                                     </a>
-                                    Realmatismo FC
+                                    Realmatismo
                                     {% if jogo.placar_real is not None %}
                                         {{ jogo.placar_real }}
                                     {% endif %}
@@ -30,7 +31,7 @@
                                     {% endif %}
                                     {{ jogo.adversario.nome }}
                                 </h6>
-                                <h6>{{ jogo.data|date:"d M Y" }} - {{ jogo.local.nome }}</h6>
+                                <h6>{{ jogo.data|date:"d/m/Y" }} - {{ jogo.local.nome }}</h6>
                             </div>
                         </div>
                     {% endfor %}
