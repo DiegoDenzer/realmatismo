@@ -77,9 +77,6 @@ class Atleta(models.Model):
         return JogoAtleta.objects.filter(atleta=self).count()
 
 
-
-
-
     class Meta:
         db_table = 'atleta'
         verbose_name = "Atleta"
