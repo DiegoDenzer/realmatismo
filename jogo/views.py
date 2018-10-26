@@ -61,7 +61,7 @@ class JogoDetail(DetailView):
 
 
 class ListaJogos(ListView):
-    context_object_name = 'contas'
+    context_object_name = 'jogos'
     model = Jogo
     paginate_by = 5
     queryset = Jogo.objects.order_by('-data')
