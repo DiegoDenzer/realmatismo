@@ -54,14 +54,14 @@
                                     </li>
 
                                     {% for i in page_obj.paginator.page_range %}
-                                        {% if jogos.number == i %}
+                                        {% if page_obj.number == i %}
                                             <li class="active deep-orange"><a href="#!">{{ i }}</a></li>
                                         {% else %}
                                             <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
                                         {% endif %}
                                     {% endfor %}
 
-                                     {% if jogos.has_next %}
+                                     {% if page_obj.has_next %}
 
                                          <li class="waves-effect">
                                              <a href="?page={{ page_obj.next_page_number }}">
