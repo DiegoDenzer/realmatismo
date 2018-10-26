@@ -1,6 +1,8 @@
 from django.db import models, connection
 from datetime import date
 
+from jogo.manager import JogoManager, AtletaManager
+
 
 class Atleta(models.Model):
     nome = models.CharField(max_length=50)
@@ -10,6 +12,9 @@ class Atleta(models.Model):
     local_nascimento = models.CharField(max_length=50)
     imagem = models.ImageField(default="/adversarios/sem-foto.png", upload_to='adversarios', null=True, blank=True)
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
+
+    objects = AtletaManager()
+
 
     @property
     def idade(self):
@@ -120,6 +125,9 @@ class Jogo(models.Model):
     placar_real = models.IntegerField(null=True, blank=True)
     placar_adversario = models.IntegerField(null=True, blank=True)
     resumo = models.TextField(null=True, blank=True)
+
+    objects = JogoManager()
+
 
     def __str__(self):
         return self.adversario.nome
