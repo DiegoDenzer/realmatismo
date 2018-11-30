@@ -21,7 +21,8 @@ class Home(View):
             'jogos_anteriores': jogos_anteriores[:1],
             'proximos_jogos': proximos_jogos[:1],
             'noticias': noticias[:1],
-            'performace': Jogo.objects.perfomace()
+            'performace': Jogo.objects.perfomace(),
+            'teste': Jogo.objects.perfomace2()
         }
 
 

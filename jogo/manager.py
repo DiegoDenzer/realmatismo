@@ -116,3 +116,20 @@ class JogoManager(models.Manager):
             else:
                 performace.append('E')
         return performace
+
+    def perfomace2(self):
+        now = datetime.now()
+        jogos_anteriores = self.order_by('-data') \
+            .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False)
+
+        pts = 0
+        possiveis = 0
+        for jogo in jogos_anteriores:
+            possiveis += 3
+            if jogo.placar_real > jogo.placar_adversario:
+                pts += 3
+            elif jogo.placar_adversario > jogo.placar_real:
+                pts += 0
+            else:
+                pts += 1
+        return round((pts/possiveis) * 100, 2)
