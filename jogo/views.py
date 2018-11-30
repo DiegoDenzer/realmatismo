@@ -13,15 +13,16 @@ class Home(View):
     def get(self, *args, **kwargs):
         data = {}
         now = datetime.now()
-
         jogos_anteriores = Jogo.objects.order_by('-data').filter(data__lt=now)
-        data['jogos_anteriores'] = jogos_anteriores[:1]
-
         proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
-        data['proximos_jogos'] = proximos_jogos[:1]
-
         noticias = Noticia.objects.order_by('-data_inclusao')
-        data['noticias'] = noticias[:1]
+
+        data ={
+            'jogos_anteriores': jogos_anteriores[:1],
+            'proximos_jogos': proximos_jogos[:1],
+            'noticias': noticias[:1],
+            'performace': Jogo.objects.perfomace()
+        }
 
 
         return render(self.request, 'jogo/home.html', data)
