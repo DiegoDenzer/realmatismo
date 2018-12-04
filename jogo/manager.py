@@ -57,6 +57,25 @@ class AtletaManager(models.Manager):
         }
 
 
+    def lista_por_categorias(self, tipo):
+
+        jogadores = self.all()
+        dicionario = {}
+
+        for jogador in jogadores:
+            if tipo == 'artilharia':
+                dicionario[jogador] = jogador.gols
+            elif tipo == 'assistencias':
+                dicionario[jogador] = jogador.assistencia
+            elif tipo == 'jogos-disputados':
+                dicionario[jogador] = jogador.jogos_realizados
+            elif tipo == 'defesas':
+                dicionario[jogador] = jogador.defesa
+        lista = sorted(dicionario, key=dicionario.__getitem__, reverse=True)
+        return lista
+
+
+
 
 class JogoManager(models.Manager):
     ''' Manager para concentrar logicas de negocio dos jogos '''

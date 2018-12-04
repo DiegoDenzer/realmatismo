@@ -80,24 +80,14 @@ class Artilheiros(View):
     template = 'jogo/artilharia.html'
 
     def get(self, *args, **kwargs):
-        jogadores = Atleta.objects.all()
-        artilheiros = {}
-        for jogador in jogadores:
-            artilheiros[jogador] = jogador.gols
-        lista_artilheiros = sorted(artilheiros, key=artilheiros.__getitem__, reverse=True)
-        return render(self.request, self.template, {'lista': lista_artilheiros})
+        return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('artilharia')})
 
 
 class Assistencias(View):
     template = 'jogo/assistencias.html'
 
     def get(self, *args, **kwargs):
-        jogadores = Atleta.objects.all()
-        assist = {}
-        for jogador in jogadores:
-            assist[jogador] = jogador.assistencia
-        lista = sorted(assist, key=assist.__getitem__, reverse=True)
-        return render(self.request, self.template, {'lista': lista})
+        return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('assistencias')})
 
 
 class Roubadas(View):
@@ -114,26 +104,14 @@ class Roubadas(View):
 
 class Defesas(View):
     template = 'jogo/defesas.html'
-
     def get(self, *args, **kwargs):
-        jogadores = Atleta.objects.all()
-        dic = {}
-        for jogador in jogadores:
-            dic[jogador] = jogador.defesa
-        lista = sorted(dic, key=dic.__getitem__, reverse=True)
-        return render(self.request, self.template, {'lista': lista})
+        return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('defesas')})
 
 
 class JogosDisputados(View):
     template = 'jogo/jogos-disputados.html'
-
     def get(self, *args, **kwargs):
-        jogadores = Atleta.objects.all()
-        dic = {}
-        for jogador in jogadores:
-            dic[jogador] = jogador.jogos_realizados
-        lista = sorted(dic, key=dic.__getitem__, reverse=True)
-        return render(self.request, self.template, {'lista': lista})
+        return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('jogos-disputados')})
 
 
 class Minutos(View):
