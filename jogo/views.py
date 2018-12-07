@@ -90,16 +90,10 @@ class Assistencias(View):
         return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('assistencias')})
 
 
-class Roubadas(View):
-    template = 'jogo/roubadas.html'
-
-    def get(self, *args, **kwargs):
-        jogadores = Atleta.objects.all()
-        dic = {}
-        for jogador in jogadores:
-            dic[jogador] = jogador.roubo
-        lista = sorted(dic, key=dic.__getitem__, reverse=True)
-        return render(self.request, self.template, {'lista': lista})
+class Desempenho(View):
+    template = 'jogo/desempenho.html'
+    def get(self, request):
+        return render(request, self.template , {'lista': Atleta.objects.lista_por_categorias('desempenho')})
 
 
 class Defesas(View):

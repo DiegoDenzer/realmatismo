@@ -1,3 +1,4 @@
+__author__ = 'Diego Denzer'
 from django.db import models, connection
 from datetime import date
 
@@ -27,6 +28,22 @@ class Atleta(models.Model):
             return hoje.year - self.data_nascimento.year - 1
         else:
             return hoje.year - self.data_nascimento.year
+
+    @property
+    def taxa_presente(self):
+        jogos = JogoAtleta.objects.filter(atleta=self)
+        pts = 0
+        possiveis = 3 * jogos.count()
+
+        for j in jogos:
+            if j.jogo.placar_real > j.jogo.placar_adversario:
+                pts += 3
+            elif j.jogo.placar_real < j.jogo.placar_adversario:
+                pts += 0
+            else:
+                pts += 1
+
+        return round((pts/possiveis) * 100, 2)
 
     @property
     def gols(self):
@@ -186,3 +203,17 @@ class Galeria(models.Model):
         db_table = 'galeria'
         verbose_name = "Galeria"
         verbose_name_plural = "Galeria"
+
+
+class Temporada(models.Model):
+    ano = models.PositiveIntegerField(default=0)
+    artililheiro = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_artilheiros', null=True)
+    passador = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_passadores', null=True)
+    goleiro = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_goleiros', null=True)
+    numero_jogos = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_jogos', null=True)
+
+
+    class Meta:
+        db_table = 'temporada'
+        verbose_name = "Temporada"
+        verbose_name_plural = "Temporadas"

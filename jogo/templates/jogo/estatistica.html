@@ -67,26 +67,26 @@
         <div class="col s12 m4 l4">
             <div class="card hoverable">
                 <div class="card-content">
-                    <span class="card-title center">Roubadas
+                    <span class="card-title center">Desempenho
                         <hr class="deep-orange">
                     </span>
                     <table>
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>Roubadas</th>
+                                <th>Taxa Aproveitamento</th>
                             </tr>
                         </thead>
                          <tbody>
-                            {% for atleta in ladroes %}
+                            {% for atleta in aproveitamento %}
                                 <tr>
                                     <td>{{ atleta.nome }}</td>
-                                    <td>{{ atleta.roubo }}</td>
+                                    <td>{{ atleta.taxa_presente }} %</td>
                                 </tr>
                             {% endfor %}
                          </tbody>
                     </table>
-                    <a href="{% url 'roubadas' %}">Ver lista completa</a>
+                    <a href="{% url 'desempenho' %}">Ver lista completa</a>
                 </div>
             </div>
         </div>

@@ -30,6 +30,7 @@ class AtletaManager(models.Manager):
         defesas = {}
         participacoes = {}
         minutos = {}
+        aproveitamento={}
 
         for jogador in jogadores:
             artilheiros[jogador] = jogador.gols
@@ -38,6 +39,7 @@ class AtletaManager(models.Manager):
             defesas[jogador] = jogador.defesa
             participacoes[jogador] = jogador.jogos_realizados
             minutos[jogador] = jogador.minutos
+            aproveitamento[jogador] = jogador.taxa_presente
 
         lista_artilheiros = sorted(artilheiros, key=artilheiros.__getitem__, reverse=True)
         lista_passsadores = sorted(passadores, key=passadores.__getitem__, reverse=True)
@@ -45,6 +47,7 @@ class AtletaManager(models.Manager):
         lista_defesas = sorted(defesas, key=defesas.__getitem__, reverse=True)
         lista_jogos = sorted(participacoes, key=participacoes.__getitem__, reverse=True)
         lista_minutos = sorted(minutos, key=minutos.__getitem__, reverse=True)
+        lista_aproveitamento = sorted(aproveitamento, key=aproveitamento.__getitem__, reverse=True)
 
         return  {
             # Dados Atletas...
@@ -54,8 +57,8 @@ class AtletaManager(models.Manager):
             'defesas': lista_defesas[:3],
             'jogos_jogados': lista_jogos[:3],
             'minutos': lista_minutos[:3],
+            'aproveitamento': lista_aproveitamento[:3],
         }
-
 
     def lista_por_categorias(self, tipo):
 
@@ -71,6 +74,8 @@ class AtletaManager(models.Manager):
                 dicionario[jogador] = jogador.jogos_realizados
             elif tipo == 'defesas':
                 dicionario[jogador] = jogador.defesa
+            elif tipo == 'desempenho':
+                dicionario[jogador] = jogador.taxa_presente
         lista = sorted(dicionario, key=dicionario.__getitem__, reverse=True)
         return lista
 
@@ -139,7 +144,7 @@ class JogoManager(models.Manager):
     def perfomace2(self):
         now = datetime.now()
         jogos_anteriores = self.order_by('-data') \
-            .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False)
+            .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False, data__year=now.year)
 
         pts = 0
         possiveis = 0
@@ -151,4 +156,4 @@ class JogoManager(models.Manager):
                 pts += 0
             else:
                 pts += 1
-        return round((pts/possiveis) * 100, 2)
+        return round( ((pts/possiveis) * 100), 2)
