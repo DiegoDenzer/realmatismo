@@ -33,8 +33,12 @@ class Atleta(models.Model):
     def taxa_presente(self):
         jogos = JogoAtleta.objects.filter(atleta=self)
         pts = 0
-        possiveis = 3 * jogos.count()
 
+        if jogos is None:
+            return 0
+
+        possiveis = 3 * jogos.count()
+        
         for j in jogos:
             if j.jogo.placar_real > j.jogo.placar_adversario:
                 pts += 3
