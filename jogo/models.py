@@ -38,6 +38,9 @@ class Atleta(models.Model):
             return 0
 
         possiveis = 3 * jogos.count()
+
+        if possiveis == 0:
+            return 0
         
         for j in jogos:
             if j.jogo.placar_real > j.jogo.placar_adversario:
