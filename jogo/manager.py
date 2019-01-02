@@ -144,7 +144,7 @@ class JogoManager(models.Manager):
     def perfomace2(self):
         now = datetime.now()
         jogos_anteriores = self.order_by('-data') \
-            .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False, data__year=now.year)
+            .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False)
 
         pts = 0
         possiveis = 0
