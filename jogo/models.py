@@ -4,6 +4,13 @@ from datetime import date
 
 from jogo.manager import JogoManager, AtletaManager
 
+STATUS = (
+    ('1', 'Ativo'),
+    ('2', 'Departamento Médico'),
+    ('3', 'Aposentado'),
+    ('4', 'Suplente'),
+    ('5', 'Suspenso'),
+)
 
 class Atleta(models.Model):
     nome = models.CharField(max_length=50)
@@ -13,10 +20,24 @@ class Atleta(models.Model):
     local_nascimento = models.CharField(max_length=50)
     imagem = models.ImageField(default="/adversarios/sem-foto.png", upload_to='adversarios', null=True, blank=True)
     numero_camisa = models.CharField(max_length=50, null=True, blank=True)
+    status_jogador = models.CharField(max_length=2, choices=STATUS, default='1')
 
     objects = AtletaManager()
 
-
+    @property
+    def status(self):
+        if self.status_jogador == '1':
+            return STATUS[0][1]
+        elif self.status_jogador == '2':
+            return STATUS[1][1]
+        elif self.status_jogador == '3':
+            return STATUS[2][1]
+        elif self.status_jogador == '2':
+            return STATUS[3][1]
+        elif self.status_jogador == '2':
+            return STATUS[4][1]
+        else:
+            return 'Sem Status'
     @property
     def idade(self):
         hoje = date.today()
@@ -41,7 +62,7 @@ class Atleta(models.Model):
 
         if possiveis == 0:
             return 0
-        
+
         for j in jogos:
             if j.jogo.placar_real > j.jogo.placar_adversario:
                 pts += 3
@@ -105,7 +126,6 @@ class Atleta(models.Model):
     def jogos_realizados(self):
         return JogoAtleta.objects.filter(atleta=self).count()
 
-
     class Meta:
         db_table = 'atleta'
         verbose_name = "Atleta"
@@ -152,7 +172,6 @@ class Jogo(models.Model):
 
     objects = JogoManager()
 
-
     def __str__(self):
         return self.adversario.nome
 
@@ -171,6 +190,7 @@ class Jogo(models.Model):
         db_table = 'jogo'
         verbose_name = "Jogo"
         verbose_name_plural = "Jogos"
+
 
 class JogoAtleta(models.Model):
     jogo = models.ForeignKey(Jogo, on_delete=models.CASCADE, related_name='jogadores')
@@ -210,17 +230,3 @@ class Galeria(models.Model):
         db_table = 'galeria'
         verbose_name = "Galeria"
         verbose_name_plural = "Galeria"
-
-
-class Temporada(models.Model):
-    ano = models.PositiveIntegerField(default=0)
-    artililheiro = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_artilheiros', null=True)
-    passador = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_passadores', null=True)
-    goleiro = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_goleiros', null=True)
-    numero_jogos = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='jogadores_jogos', null=True)
-
-
-    class Meta:
-        db_table = 'temporada'
-        verbose_name = "Temporada"
-        verbose_name_plural = "Temporadas"
