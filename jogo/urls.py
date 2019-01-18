@@ -1,7 +1,8 @@
 from django.urls import path
 
 from jogo.views import Home, ListaAtletas, AtletaDetail, JogoDetail, ListaJogos, ListaNoticias, NoticiaDetail, \
-    Estatisticas, Artilheiros, Assistencias, Desempenho, Defesas, Minutos, JogosDisputados, Galeria, TimeList
+    Estatisticas, Artilheiros, Assistencias, Desempenho, Defesas, Minutos, JogosDisputados, Galeria, TimeList, \
+    AdversariosView
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -22,5 +23,6 @@ urlpatterns = [
 
     path('galeria', Galeria.as_view(), name='galeria'),
     path('time', TimeList.as_view(), name='time'),
+    path('adversarios', AdversariosView.as_view(), name='adversarios'),
 
 ]

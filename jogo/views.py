@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
 
-from jogo.models import Jogo, Atleta, Noticia, JogoAtleta, Galeria
+from jogo.models import Jogo, Atleta, Noticia, JogoAtleta, Galeria, Adversario
 
 
 class Home(View):
@@ -182,3 +182,11 @@ class TimeList(View):
             'performace': Jogo.objects.perfomace()
         }
         return render(self.request, self.template, data)
+
+
+class AdversariosView(ListView):
+    template_name = 'jogo/adversarios.html'
+    model = Adversario
+    paginate_by = 5
+    queryset = Adversario.objects.order_by('nome')
+    context_object_name = 'adversarios'

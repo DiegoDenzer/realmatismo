@@ -137,8 +137,42 @@ class Atleta(models.Model):
 
 class Adversario(models.Model):
     nome = models.CharField(max_length=50)
-    escudo_adversario = models.ImageField(default="/adversarios/sem_escudo.png", upload_to='adversarios', null=True,
-                                          blank=True)
+    escudo_adversario = models.ImageField(default="/adversarios/sem_escudo.png", upload_to='adversarios',
+                                          null=True,blank=True)
+    telefone = models.CharField(default='', max_length=14)
+
+    @property
+    def vitoria(self):
+
+        jogos = Jogo.objects.filter(adversario=self, placar_real__isnull=False, placar_adversario__isnull=False).count()
+        return jogos;
+
+    @property
+    def vitoria(self):
+        jogos = Jogo.objects.filter(adversario=self, placar_real__isnull=False, placar_adversario__isnull=False)
+        v= 0
+        for j in jogos:
+            if j.jogo.placar_real < j.jogo.placar_adversario:
+                v += 1
+        return v;
+
+    @property
+    def derrota(self):
+        jogos = Jogo.objects.filter(adversario=self)
+        d = 0
+        for j in jogos:
+            if j.jogo.placar_real > j.jogo.placar_adversario:
+                d += 1
+        return d;
+
+    @property
+    def empate(self):
+        jogos = Jogo.objects.filter(adversario=self)
+        d = 0
+        for j in jogos:
+            if j.jogo.placar_real  == j.jogo.placar_adversario:
+                d += 1
+        return d;
 
     class Meta:
         db_table = 'adversario'
