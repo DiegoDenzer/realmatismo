@@ -12,5 +12,49 @@
     {% empty %}
         Sem Adversários
     {% endfor %}
+
+    <div row>
+                            <div class="center-align">
+                                <ul class="pagination">
+                                    <li>
+                                        {% if jogos.has_previous %}
+                                            <a href="?page={{ page_obj.previous_page_number }}">
+                                               <i class="fas fa-step-backward" aria-hidden="true"></i>
+                                            </a>
+
+
+                                        {% else %}
+                                            <li class="disabled"><a href="#!"><i class="fas fa-step-backward" aria-hidden="true"></i></a></li>
+
+                                        {% endif %}
+
+                                    </li>
+
+                                    {% for i in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                            <li class="active deep-orange"><a href="#!">{{ i }}</a></li>
+                                        {% else %}
+                                            <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                     {% if page_obj.has_next %}
+
+                                         <li class="waves-effect">
+                                             <a href="?page={{ page_obj.next_page_number }}">
+                                                 <i class="fas fa-step-forward fa-2x" aria-hidden="true"></i>
+                                             </a>
+
+
+                                         </li>
+                                         {% else %}
+                                                <li class="disabled"><a href="#!"><i class="fas fa-step-forward" aria-hidden="true"></i></a></li>
+
+                                     {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+
+
     </ul>
 {% endblock %}
