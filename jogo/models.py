@@ -32,9 +32,9 @@ class Atleta(models.Model):
             return STATUS[1][1]
         elif self.status_jogador == '3':
             return STATUS[2][1]
-        elif self.status_jogador == '2':
+        elif self.status_jogador == '4':
             return STATUS[3][1]
-        elif self.status_jogador == '2':
+        elif self.status_jogador == '5':
             return STATUS[4][1]
         else:
             return 'Sem Status'
