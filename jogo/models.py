@@ -159,7 +159,7 @@ class Adversario(models.Model):
 
     @property
     def derrota(self):
-        jogos = Jogo.objects.filter(adversario=self)
+        jogos = Jogo.objects.filter(adversario=self, placar_real__isnull=False, placar_adversario__isnull=False)
         d = 0
         for j in jogos:
             if j.placar_real > j.placar_adversario:
@@ -168,7 +168,7 @@ class Adversario(models.Model):
 
     @property
     def empate(self):
-        jogos = Jogo.objects.filter(adversario=self)
+        jogos = Jogo.objects.filter(adversario=self, placar_real__isnull=False, placar_adversario__isnull=False)
         d = 0
         for j in jogos:
             if j.placar_real == j.placar_adversario:
