@@ -7,7 +7,7 @@
         <li class="collection-item avatar">
             <img src="media/{{ adversario.escudo_adversario }}" alt="" class="circle">
             <span class="title">{{ adversario.nome }}</span>
-            <a>{{ adversario.jogos }} </a>
+            <a class="secondary-content">J: {{ adversario.jogos }}- V: {{ adversario.vitoria }}- D: {{ adversario.derrota }}- E:{{ adversario.empate }} </a>
         </li>
     {% empty %}
         Sem Adversários
