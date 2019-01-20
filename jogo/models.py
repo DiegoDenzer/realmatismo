@@ -153,7 +153,7 @@ class Adversario(models.Model):
         jogos = Jogo.objects.filter(adversario=self, placar_real__isnull=False, placar_adversario__isnull=False)
         v= 0
         for j in jogos:
-            if j.jogo.placar_real < j.jogo.placar_adversario:
+            if j.placar_real < j.placar_adversario:
                 v += 1
         return v;
 
@@ -162,7 +162,7 @@ class Adversario(models.Model):
         jogos = Jogo.objects.filter(adversario=self)
         d = 0
         for j in jogos:
-            if j.jogo.placar_real > j.jogo.placar_adversario:
+            if j.placar_real > j.placar_adversario:
                 d += 1
         return d;
 
@@ -171,7 +171,7 @@ class Adversario(models.Model):
         jogos = Jogo.objects.filter(adversario=self)
         d = 0
         for j in jogos:
-            if j.jogo.placar_real  == j.jogo.placar_adversario:
+            if j.placar_real == j.placar_adversario:
                 d += 1
         return d;
 
