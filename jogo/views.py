@@ -21,7 +21,7 @@ class Home(View):
         if proximos_jogos.count() > 0:
             te = Jogo.objects.filter(adversario=proximos_jogos[0].adversario).order_by('-data')
 
-            if te.count() > 0:
+            if te.count() > 1:
                 if te[1].placar_real > te[1].placar_adversario:
                     string = f'No Último confronto entre as duas equipes vitória do Realmatismo pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
                 elif te[1].placar_real < te[1].placar_adversario:
