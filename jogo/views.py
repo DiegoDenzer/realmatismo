@@ -17,20 +17,19 @@ class Home(View):
         jogos_anteriores = Jogo.objects.order_by('-data').filter(data__lt=now)
         proximos_jogos = Jogo.objects.order_by('data').filter(data__gte=now)
         noticias = Noticia.objects.order_by('-data_inclusao')
-
-        te = Jogo.objects.filter(adversario=proximos_jogos[0].adversario).order_by('-data')
-
         string = ''
-        if te is not None:
-            print( te[0].adversario )
-            if te[1].placar_real > te[1].placar_adversario:
-                string = f'No Último confronto entre as duas equipes vitória do Realmatismo pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
-            elif te[1].placar_real < te[1].placar_adversario:
-                string = f'No Último confronto entre as duas equipes derrota do Realmatismo pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
-            elif te[1].placar_real == te[1].placar_adversario:
-                string = f'No Último confronto entre as duas equipes empate pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
-        else:
-            string= 'Primeiro jogo entre as duas equipes'
+        if proximos_jogos.count() > 0:
+            te = Jogo.objects.filter(adversario=proximos_jogos[0].adversario).order_by('-data')
+
+            if te.count() > 0:
+                if te[1].placar_real > te[1].placar_adversario:
+                    string = f'No Último confronto entre as duas equipes vitória do Realmatismo pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
+                elif te[1].placar_real < te[1].placar_adversario:
+                    string = f'No Último confronto entre as duas equipes derrota do Realmatismo pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
+                elif te[1].placar_real == te[1].placar_adversario:
+                    string = f'No Último confronto entre as duas equipes empate pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
+            else:
+                string= 'Primeiro jogo entre as duas equipes'
 
         data ={
             'detalhes_ultimo': string,
