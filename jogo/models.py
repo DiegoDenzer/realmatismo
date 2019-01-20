@@ -12,6 +12,7 @@ STATUS = (
     ('5', 'Suspenso'),
 )
 
+
 class Atleta(models.Model):
     nome = models.CharField(max_length=50)
     sobrenome = models.CharField(max_length=50)
@@ -142,7 +143,7 @@ class Adversario(models.Model):
     telefone = models.CharField(default='', max_length=14)
 
     @property
-    def vitoria(self):
+    def jogos(self):
 
         jogos = Jogo.objects.filter(adversario=self, placar_real__isnull=False, placar_adversario__isnull=False).count()
         return jogos;
@@ -236,7 +237,7 @@ class JogoAtleta(models.Model):
     minutos = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.atleta.nome}'
+        return self.atleta.nome
 
     class Meta:
         db_table = 'jogo_x_atleta'
