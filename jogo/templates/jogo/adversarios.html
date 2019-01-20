@@ -5,9 +5,9 @@
         <li class="collection-header"><h4 class="center">Adversários</h4><hr class="deep-orange"></li>
     {% for adversario in adversarios %}
         <li class="collection-item avatar">
-            <img src="media/{{ adversario.imagem }}" alt="" class="circle">
+            <img src="media/{{ adversario.escudo_adversario }}" alt="" class="circle">
             <span class="title">{{ adversario.nome }}</span>
-            <a></a>
+            <a>{{ adversario.jogos }} </a>
         </li>
     {% empty %}
         Sem Adversários
