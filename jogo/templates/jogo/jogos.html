@@ -7,15 +7,19 @@
             <div class="card">
                 <div class="card-content">
                     <div class="row center">
-                        <h4>Jogos</h4>
+                        <h5 style="color: orangered">Jogos</h5>
                         <hr class="deep-orange">
                     </div>
                     {% for jogo in jogos %}
                         <div class="row">
-                            <div class="center center-align card {% if jogo.placar_real > jogo.placar_adversario %}green
-                                             {% elif jogo.placar_real < jogo.placar_adversario %}red
-                                             {% else %}grey
-                                             {% endif %}">
+                            <div class="center z-depth-2 center-align card card
+                                        {% if jogo.placar_real is None %}grey
+                                        {% else %}
+                                            {% if jogo.placar_real > jogo.placar_adversario %}green accent-3
+                                                {% elif jogo.placar_real < jogo.placar_adversario %}red lighten-1
+                                                {% else %} yellow lighten-1
+                                                {% endif %}
+                                        {% endif %}">
 
                                 <h6 style="padding-top: 20px; padding-bottom: 20px">
                                     <a href="{% url 'jogo' jogo.pk%}" class="pulse">
