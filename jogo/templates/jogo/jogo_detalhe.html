@@ -7,57 +7,62 @@
             <div class="card">
                 <div class="card-content">
                          {% if jogo.placar_real is None %}
-
-
                              Jogo não realizado.
-
-
                              {% else %}
-                             <h5 class="center">Dados do jogo</h5><br>
-                             <hr class="deep-orange"/>
+
+                             <h5 class="center" >
+                                 <span style="color: orange">Dados do jogo</span>
+                             </h5>
+
+                             <hr style="color: orange"/>
+
+                             <div class="row">
+                                 <div class="col s8 align-left" style="font-weight: bold; font-size: large">
+                                     Realmatismo FC
+                                 </div>
+                                 <div class="col s4">
+                                     <div class="z-depth-1 card center-align">
+                                              <span>{{jogo.placar_real  }}</span>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="row">
+                                 <div class="col s8 align-left" style="font-weight: bold; font-size: large">
+                                     {{ jogo.adversario.nome }}
+                                 </div>
+                                 <div class="col s4">
+                                     <div class="z-depth-1 card center-align">
+                                              <span>{{ jogo.placar_adversario }}</span>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="row">
+                                 <div class="col s8 align-left" style="font-weight: bold; font-size: large">
+                                     Local:
+                                 </div>
+                                 <div class="col s4">
+                                     <span>{{ jogo.local }}</span>
+                                 </div>
+                             </div>
+
+                             <div class="row">
+                                 <div class="col s8 align-left" style="font-weight: bold; font-size: large">
+                                     Data:
+                                 </div>
+                                 <div class="col s4">
+                                     <span>{{ jogo.data|date:"d M Y" }}</span>
+                                 </div>
+                             </div>
+
+                             <hr class="orange"/>
+
                                 <div class="row">
-                                    <div class="col s4">
-                                        <div class="center">
-                                            <span>Realmatismo FC</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col s1">
-                                         <div class="center">
-                                            <span>{{jogo.placar_real  }}</span>
-                                         </div>
-                                    </div>
-
-                                    <div class="col s2">
-                                      <div class="center">
-                                          <span> X </span>
-                                      </div>
-                                    </div>
-
-                                    <div class="col s1">
-                                         <div class="center">
-                                            <span>{{ jogo.placar_adversario }}</span>
-                                         </div>
-                                    </div>
-                                    <div class="col s4">
-                                         <div class="center">
-                                            <span>{{ jogo.adversario.nome }}</span>
-                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    Local: {{ jogo.local }}
-                                </div>
-                                <div class="row">
-                                    Data: {{ jogo.data|date:"d M Y" }}
-                                </div>
-
-                                <hr class="deep-orange"/>
-
-                                <div class="row">
-                                    <h5 class="center">Participantes: </h5><br>
-                                     <table>
+                                    <h5 class="center">
+                                        <span style="color: orange">Participantes</span>
+                                    </h5>
+                                     <table class="striped">
                                         <thead>
                                             <th>Nome</th>
                                             <th>G</th>
@@ -77,7 +82,7 @@
                                                     {% endif %}
                                                 </td>
                                                 <td>
-                                                    {% if t.assistencia is not None %}
+                                                    {% if t.asssitencia is not None %}
                                                         {{ t.asssitencia }}
                                                     {% else %}
                                                         0
@@ -89,7 +94,6 @@
                                      </table>
                                 </div>
                          {% endif %}
-
                 </div>
             </div>
         </div>
