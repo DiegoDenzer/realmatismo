@@ -35,14 +35,16 @@
   </nav>
 
   <ul class="sidenav" id="slide-out">
-      <li><div class="user-view">
-      <div class="background orange">
-
-      </div>
-      <a href="#user"><img class="circle" src="../media/adversarios/real.png" width="1000px"></a>
-      <a href="#name"><span class="black-text name">Realmatismo FC</span></a>
-      <a href="#email"><span class="black-text email">since 2015</span></a>
-    </div></li>
+      <li>
+          <div class="user-view">
+              <div class="background orange">
+                  <img class="responsive-img" style="margin-top: -2%; height: 110px; float: right" src="../media/galeria/real.png">
+              </div>
+              <!--<a href="#user"><img class="circle" src="../media/adversarios/real.png" width="1000px"></a>-->
+              <a href="#name"><span class="black-text name">Realmatismo FC</span></a>
+              <a href="#email"><span class="black-text email">since 2015</span></a>
+          </div>
+      </li>
       <li><a href="{% url 'home' %}"><i class="fas fa-home fa-lg" style="color: orange"></i>Inicio</a></li>
       <li><a href="{% url 'jogos' %}"><i class="fas fa-futbol fa-lg" style="color: orange"></i> Jogos</a></li>
       <li><a href="{% url 'atletas' %}"><i class="fas fa-user fa-lg" style="color: orange"></i> Atletas</a></li>
