@@ -31,7 +31,7 @@ class ContatoView(View):
                 'Contato Realmatismo FC',  # Assunto
                 corpo,
                 'diegodenzer.devops@gmail.com',
-                ['realmatismo.cwb@gmail.com']
+                ['realmatismo.cwb@gmail.com', 'marlosgiovanni@hotmail.com']
             )
 
             msg = 'Cadastro Realizado com sucesso!!!'
