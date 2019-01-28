@@ -14,3 +14,5 @@ $(document).ready(function(){
 var instance = M.Materialbox.getInstance(elem);
   instance.open();
   instance.close();
+
+M.toast({html: 'Cadastro Realizado com Sucesso!!!'})

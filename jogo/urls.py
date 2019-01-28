@@ -1,6 +1,7 @@
 from django.urls import path
 
 from jogo.view.atletas import ListaAtletas, AtletaDetail
+from jogo.view.contato import ContatoView
 from jogo.view.estatisticas import Estatisticas, Artilheiros, Assistencias, Defesas, Desempenho, Minutos, \
     JogosDisputados
 from jogo.view.home import Home
@@ -28,5 +29,8 @@ urlpatterns = [
     path('galeria', Galeria.as_view(), name='galeria'),
     path('time', TimeList.as_view(), name='time'),
     path('adversarios', AdversariosView.as_view(), name='adversarios'),
+
+    path('contato', ContatoView.as_view(), name='contato'),
+
 
 ]

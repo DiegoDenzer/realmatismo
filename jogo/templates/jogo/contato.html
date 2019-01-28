@@ -4,14 +4,33 @@
 <div class="col s12 m12 l12">
     <div class="card hoverable">
         <div class="card-content">
-            <span class="card-title">Contato</span>
+            <span class="card-title center">
+                <h5 style="color: orange">Contato</h5></span>
+                    {% if msg%}
+                        <div class="card green">
+                            {{ msg }}
+                        </div>
+                    {% endif %}
             <form action="" method="post">
                 <form class="col s12">
+                    {% csrf_token %}
                     <div class="row">
+                        <div class="input-field col s12 m6">
+                            {{ form.email }}
+                        </div>
+                        <div class="input-field col s12 m6">
+                            {{ form.whats }}
+                        </div>
                         <div class="input-field col s12">
-                            {{ form }}
+                            {{ form.nome_time }}
+                        </div>
+                         <div class="input-field col s12">
+                            {{ form.nome_contato }}
                         </div>
                     </div>
+                    <button class="btn waves-effect waves-light orange" type="submit" name="action">Enviar
+                        <i class="material-icons right">send</i>
+                    </button>
             </form>
         </div>
     </div>

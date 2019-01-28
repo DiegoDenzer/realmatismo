@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -162,3 +162,9 @@ JET_THEMES = [
     }
 ]
 JET_SIDE_MENU_COMPACT = True
+
+EMAIL_HOST= 'smtp.gmail.com'
+EMAIL_PORT= '587'
+EMAIL_HOST_USER= config('USER_EMAIL')
+EMAIL_HOST_PASSWORD= config('PASSWORD_EMAIL')
+EMAIL_USE_TLS = True

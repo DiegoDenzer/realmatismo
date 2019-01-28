@@ -1,13 +1,16 @@
-from django.forms import forms
+from django import forms
 
 
-class TemporadaForm(forms.Form):
+class ContatoForm(forms.Form):
 
-    email = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'quantidade', 'class': 'form-control form-control-alternative'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={
+        'placeholder': 'E-mail', 'class': 'validate', 'maxlength':'60'}))
 
     whats = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'quantidade', 'class': 'form-control form-control-alternative'}))
+        'placeholder': 'WhatsApp', 'class': 'validate', 'maxlength': '14'}))
 
-    nome = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'quantidade', 'class': 'form-control form-control-alternative'}))
+    nome_time = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Nome do Time', 'class': 'validate', 'maxlength': '60'}))
+
+    nome_contato = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Nome do Time', 'class': 'validate', 'maxlength': '60'}))
