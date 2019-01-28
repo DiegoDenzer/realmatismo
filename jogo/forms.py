@@ -13,4 +13,4 @@ class ContatoForm(forms.Form):
         'placeholder': 'Nome do Time', 'class': 'validate', 'maxlength': '60'}))
 
     nome_contato = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Nome do Time', 'class': 'validate', 'maxlength': '60'}))
+        'placeholder': 'Nome Contato', 'class': 'validate', 'maxlength': '60'}))
