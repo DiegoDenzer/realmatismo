@@ -1,59 +1,73 @@
 {% extends 'base.html' %}
 {% block title %}Adversários|Realmatismo Fc {% endblock %}
 {% block main %}
-    <ul class="collection with-header">
-        <li class="collection-header"><h4 class="center">Adversários</h4><hr class="deep-orange"></li>
+
+    <div class="row">
     {% for adversario in adversarios %}
-        <li class="collection-item avatar">
-            <img src="media/{{ adversario.escudo_adversario }}" alt="" class="circle">
-            <span class="title">{{ adversario.nome }}</span>
-            <a class="secondary-content">J: {{ adversario.jogos }}- V: {{ adversario.vitoria }}- D: {{ adversario.derrota }}- E:{{ adversario.empate }} </a>
-        </li>
+
+          <div class="col s12 m6 l4">
+            <div class="card horizontal">
+                <div class="card-image">
+                    <img style="max-width: 80px; max-height: 110px;margin: 25px" src="media/{{ adversario.escudo_adversario }}" alt="adversario" class="circle">
+                </div>
+                <div class="card-stacked">
+                    <div class="card-content">
+                        <p>Jogos: {{ adversario.jogos }}<br>
+                           Vitórias Real: {{ adversario.derrota }}<br>
+                           Vitórias Adv: {{ adversario.vitoria }} <br>
+                           Empates:{{ adversario.empate }} <br>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     {% empty %}
         Sem Adversários
     {% endfor %}
-
+    </div>
     <div row>
-                            <div class="center-align">
-                                <ul class="pagination">
-                                    <li>
-                                        {% if jogos.has_previous %}
-                                            <a href="?page={{ page_obj.previous_page_number }}">
-                                               <i class="fas fa-step-backward" aria-hidden="true"></i>
-                                            </a>
+    <div class="center-align">
+        <ul class="pagination">
+            <li>
+                {% if jogos.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">
+                       <i class="fas fa-step-backward" aria-hidden="true"></i>
+                    </a>
 
 
-                                        {% else %}
-                                            <li class="disabled"><a href="#!"><i class="fas fa-step-backward" aria-hidden="true"></i></a></li>
+                {% else %}
+                    <li class="disabled"><a href="#!"><i class="fas fa-step-backward" aria-hidden="true"></i></a></li>
 
-                                        {% endif %}
+                {% endif %}
 
-                                    </li>
+            </li>
 
-                                    {% for i in page_obj.paginator.page_range %}
-                                        {% if page_obj.number == i %}
-                                            <li class="active deep-orange"><a href="#!">{{ i }}</a></li>
-                                        {% else %}
-                                            <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
+            {% for i in page_obj.paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active deep-orange"><a href="#!">{{ i }}</a></li>
+                {% else %}
+                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
 
-                                     {% if page_obj.has_next %}
+             {% if page_obj.has_next %}
 
-                                         <li class="waves-effect">
-                                             <a href="?page={{ page_obj.next_page_number }}">
-                                                 <i class="fas fa-step-forward fa-2x" aria-hidden="true"></i>
-                                             </a>
+                 <li class="waves-effect">
+                     <a href="?page={{ page_obj.next_page_number }}">
+                         <i class="fas fa-step-forward fa-2x" aria-hidden="true"></i>
+                     </a>
 
 
-                                         </li>
-                                         {% else %}
-                                                <li class="disabled"><a href="#!"><i class="fas fa-step-forward" aria-hidden="true"></i></a></li>
+                 </li>
+                 {% else %}
+                        <li class="disabled"><a href="#!"><i class="fas fa-step-forward" aria-hidden="true"></i></a></li>
 
-                                     {% endif %}
-                                </ul>
-                            </div>
-                        </div>
+             {% endif %}
+        </ul>
+    </div>
+</div>
 
 
     </ul>

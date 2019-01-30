@@ -29,6 +29,6 @@ class Galeria(ListView):
 class AdversariosView(ListView):
     template_name = 'jogo/adversarios.html'
     model = Adversario
-    paginate_by = 5
+    paginate_by = 9
     queryset = Adversario.objects.order_by('nome')
     context_object_name = 'adversarios'

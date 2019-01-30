@@ -12,6 +12,6 @@ class JogoDetail(DetailView):
 class ListaJogos(ListView):
     context_object_name = 'jogos'
     model = Jogo
-    paginate_by = 5
+    paginate_by = 8 
     queryset = Jogo.objects.order_by('-data')
     template_name = 'jogo/jogos.html'
