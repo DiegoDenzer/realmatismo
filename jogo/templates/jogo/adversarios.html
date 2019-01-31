@@ -8,14 +8,16 @@
           <div class="col s12 m6 l4">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img style="max-width: 80px; max-height: 110px;margin: 25px" src="media/{{ adversario.escudo_adversario }}" alt="adversario" class="circle">
+                    <img style="max-width: 80px; max-height: 100px;margin: 20px" src="media/{{ adversario.escudo_adversario }}" alt="adversario" class="circle">
                 </div>
                 <div class="card-stacked">
+                    <div class="card-title" style="margin-left: 20px; margin-top: 5px; color: orange ">{{ adversario.nome }}</div>
                     <div class="card-content">
-                        <p>Jogos: {{ adversario.jogos }}<br>
-                           Vitórias Real: {{ adversario.derrota }}<br>
-                           Vitórias Adv: {{ adversario.vitoria }} <br>
-                           Empates:{{ adversario.empate }} <br>
+                        <p>
+                            <span class="label-adversario">Jogos: </span>{{ adversario.jogos }}<br>
+                            <span class="label-adversario">Vitórias Real: </span> {{ adversario.derrota }}<br>
+                            <span class="label-adversario">Vitórias Adv: </span> {{ adversario.vitoria }} <br>
+                            <span class="label-adversario">Empates: </span>{{ adversario.empate }} <br>
                         </p>
                     </div>
 
@@ -58,8 +60,6 @@
                      <a href="?page={{ page_obj.next_page_number }}">
                          <i class="fas fa-step-forward fa-2x" aria-hidden="true"></i>
                      </a>
-
-
                  </li>
                  {% else %}
                         <li class="disabled"><a href="#!"><i class="fas fa-step-forward" aria-hidden="true"></i></a></li>
