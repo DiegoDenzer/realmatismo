@@ -19,7 +19,7 @@ class TimeList(View):
         media_idade = Atleta.objects.media_idade_atletas()
 
         data = {
-        # Dados Time...
+            # Dados Time...
             'gols_favor': favor,
             'gols_contra': contra,
             'vitoria': dados_time['vitoria'],
@@ -29,7 +29,7 @@ class TimeList(View):
             'saldo': saldo,
             'media_gols': round(favor / dados_time['jogos'], 1),
             'media_sofridos': round(contra / dados_time['jogos'], 1),
-        # Coisas alway
+            # Coisas alway
             'jogador_novo': Atleta.objects.jogador_mais_novo(),
             'jogador_velho': Atleta.objects.jogador_mais_velho(),
             'media_idade': round(media_idade / jogadores.count(), 1),
