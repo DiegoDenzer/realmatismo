@@ -72,8 +72,7 @@
                                     {% for t in jogo.jogadores.all %}
                                             <tr>
                                                 <td style="text-align: left">
-                                                    <a style="color: black" href="{% url 'atleta' t.atleta.pk %}"
-                                                       class="secondary-content">
+                                                    <a style="color: black" href="{% url 'atleta' t.atleta.pk %}">
                                                         <i class="fas fa-user" aria-hidden="true"></i>
                                                         {{ t.atleta.nome }}
                                                     </a>
