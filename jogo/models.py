@@ -5,10 +5,10 @@ from datetime import date
 from jogo.manager import JogoManager, AtletaManager
 
 STATUS = (
-    ('1', 'Ativo'),
+    ('1', 'Elenco Principal'),
     ('2', 'Departamento Médico'),
     ('3', 'Aposentado'),
-    ('4', 'Suplente'),
+    ('4', 'Convidado'),
     ('5', 'Suspenso'),
 )
 
