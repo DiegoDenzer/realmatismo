@@ -72,11 +72,12 @@
                                     {% for t in jogo.jogadores.all %}
                                             <tr>
                                                 <td>
-                                                    <a style="color: orange" href="{% url 'atleta' t.atleta.pk %}"
+                                                    <a style="color: black" href="{% url 'atleta' t.atleta.pk %}"
                                                        class="secondary-content">
-                                                        <i class="fas fa-user" aria-hidden="true"></i> Detalhes
+                                                        <i class="fas fa-user" aria-hidden="true"></i>
+                                                        {{ t.atleta.nome }}
                                                     </a>
-                                                    {{ t.atleta.nome }}
+
                                                 </td>
                                                 <td>
                                                     {% if t.gols is not None %}
