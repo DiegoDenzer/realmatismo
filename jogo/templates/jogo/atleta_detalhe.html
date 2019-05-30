@@ -59,4 +59,28 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col s12 m12 l12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title center">Conquistas
+                        <hr class="deep-orange"/>
+                    </span>
+
+                    <ul class="collection">
+                    {% for c in atleta.conquistas.all %}
+                        <li class="collection-item avatar">
+                            <img src="../media{{ c.conquista.imagem }}" alt=""  class="circle">
+                            <span class="title">{{ c }}</span>
+                        </li>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 {% endblock %}

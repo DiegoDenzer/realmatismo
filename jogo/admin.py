@@ -1,12 +1,14 @@
 from django.contrib import admin
 
 # Register your models here.
-from jogo.models import Jogo, Atleta, Adversario, JogoAtleta, Local, Noticia, Galeria
+from jogo.models import Jogo, Atleta, Adversario, JogoAtleta, Local, Noticia, Galeria, Conquista, ConquistaAtleta
 
 
 class JogadorTabular(admin.TabularInline):
     model = JogoAtleta
 
+class ConquistaTabular(admin.TabularInline):
+    model = ConquistaAtleta
 
 class JogoAdmin(admin.ModelAdmin):
    inlines = (JogadorTabular,)
@@ -22,7 +24,7 @@ class JogoAdmin(admin.ModelAdmin):
 
 
 class AtletaAdmin(admin.ModelAdmin):
-    pass
+    inlines = inlines = (ConquistaTabular,)
 
 
 class AdversarioAdmin(admin.ModelAdmin):
@@ -40,6 +42,8 @@ class NoticiaAdmin(admin.ModelAdmin):
 class GaleriaAdmin(admin.ModelAdmin):
     pass
 
+class ConquistaAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.register(Jogo, JogoAdmin)
 admin.site.register(Atleta, AtletaAdmin)
@@ -47,3 +51,4 @@ admin.site.register(Adversario, AdversarioAdmin)
 admin.site.register(Local, LocalAdmin)
 admin.site.register(Noticia, NoticiaAdmin)
 admin.site.register(Galeria, GaleriaAdmin)
+admin.site.register(Conquista, ConquistaAdmin)

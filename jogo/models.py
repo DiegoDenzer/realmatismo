@@ -1,3 +1,5 @@
+from django.db.models.signals import post_save
+
 __author__ = 'Diego Denzer'
 from django.db import models, connection
 from datetime import date
@@ -10,6 +12,14 @@ STATUS = (
     ('3', 'Aposentado'),
     ('4', 'Convidado'),
     ('5', 'Suspenso'),
+)
+
+TIPO_CONQUISTA = (
+    ('1', 'Gols'),
+    ('2', 'Assitencias'),
+    ('3', 'Jogos'),
+    ('4', 'Defesas'),
+    ('5', 'Hat-Trick'),
 )
 
 
@@ -265,3 +275,58 @@ class Galeria(models.Model):
         db_table = 'galeria'
         verbose_name = "Galeria"
         verbose_name_plural = "Galeria"
+
+
+class Conquista(models.Model):
+    nome = models.CharField(max_length=100)
+    valor = models.PositiveIntegerField(default=0)
+    tipo = models.CharField(choices=TIPO_CONQUISTA, max_length=2)
+    imagem = models.ImageField(default="/adversarios/sem_escudo.png", upload_to='adversarios', null=True, blank=True)
+
+
+    class Meta:
+        verbose_name = "Conquista"
+        verbose_name_plural = "Conquistas"
+
+    def __str__(self):
+        return self.nome
+
+
+class ConquistaAtleta(models.Model):
+    conquista = models.ForeignKey(Conquista, on_delete=models.CASCADE)
+    atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE, related_name='conquistas')
+    data_conquista = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.conquista.nome
+
+def cria_objeto(conquista, jogador):
+    ConquistaAtleta.objects.create(conquista=conquista, atleta=jogador)
+
+
+def validar_conquista(conquista, jogador):
+    if conquista.tipo == '1' and jogador.gols >= conquista.valor:
+        cria_objeto(conquista, jogador)
+    elif conquista.tipo == '2' and jogador.assistencia >= conquista.valor:
+        cria_objeto(conquista, jogador)
+    elif conquista.tipo == '3' and jogador.jogos_realizados >= conquista.valor:
+        cria_objeto(conquista, jogador)
+    elif conquista.tipo == '4' and jogador.defesa >= conquista.valor:
+        cria_objeto(conquista, jogador)
+
+
+def cria_conquista(sender, instance, created, **kwargs):
+    if not created:
+        jogadores = instance.jogadores.all()
+        lista_conquista = Conquista.objects.all()
+        for jogador in jogadores:
+            conquistas_jogador = jogador.atleta.conquistas.all()
+            teste = []
+            for cj in conquistas_jogador:
+                teste.append(cj.conquista)
+
+            for conquista in lista_conquista:
+                if conquista not in teste:
+                    validar_conquista(conquista, jogador.atleta)
+
+post_save.connect(cria_conquista, sender=Jogo)
