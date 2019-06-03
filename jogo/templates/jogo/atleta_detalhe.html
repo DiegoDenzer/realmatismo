@@ -51,7 +51,6 @@
                         <li class="collection-item"><div>Defesas<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.defesa }}</a></div></li>
                         <li class="collection-item"><div>Minutos<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.minutos }}</a></div></li>
                         <li class="collection-item"><div>Aproveitamento Individual<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.taxa_presente }}</a></div></li>
-
                      </ul>
 
                 </div>
@@ -70,17 +69,14 @@
                     <ul class="collection">
                     {% for c in atleta.conquistas.all %}
                         <li class="collection-item avatar">
-                            <img src="../media{{ c.conquista.imagem }}" alt=""  class="circle">
-                            <span class="title">{{ c }}</span>
+                            <img src="../../media/{{c.conquista.imagem}}" alt=""  class="circle">
+                            <span class="title">{{c}}</span>
                         </li>
                     {% endfor %}
-
-
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-
 
 {% endblock %}

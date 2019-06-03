@@ -81,7 +81,7 @@
                                   <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
                                   <span class="title">{{ jogo.adversario.nome }}</span>
                                   <p>
-                                      <b style="color: orangered">Data:</b>{{ jogo.data }} <br>
+                                      <b style="color: orangered">Data:</b> {{ jogo.data }} <br>
                                       {% if jogo.placar_real is not None %}
                                           <b style="color: orangered">Placar:</b> {{ jogo.placar_real }} X {{ jogo.placar_adversario }}
                                       {% else %}
