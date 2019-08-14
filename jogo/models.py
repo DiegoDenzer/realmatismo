@@ -49,6 +49,7 @@ class Atleta(models.Model):
             return STATUS[4][1]
         else:
             return 'Sem Status'
+
     @property
     def idade(self):
         hoje = date.today()
@@ -86,7 +87,6 @@ class Atleta(models.Model):
 
     @property
     def gols(self):
-
         gols = 0
         cards = JogoAtleta.objects.filter(atleta=self)
         for card in cards:
@@ -95,8 +95,16 @@ class Atleta(models.Model):
         return gols
 
     @property
-    def minutos(self):
+    def media_gols(self):
+        g = self.gols
+        p = JogoAtleta.objects.filter(atleta=self).count()
+        if g > 0:
+            return g/p
+        else:
+            return 0
 
+    @property
+    def minutos(self):
         minutos = 0
         cards = JogoAtleta.objects.filter(atleta=self)
         for card in cards:
@@ -104,16 +112,23 @@ class Atleta(models.Model):
                 minutos = minutos + card.minutos
         return minutos
 
-
     @property
     def assistencia(self):
-
         assistencia = 0
         cards = JogoAtleta.objects.filter(atleta=self)
         for card in cards:
             if card.asssitencia is not None:
                 assistencia = assistencia + card.asssitencia
         return assistencia
+
+    @property
+    def media_assistencia(self):
+        a = self.assistencia
+        p = JogoAtleta.objects.filter(atleta=self).count()
+        if a > 0:
+            return a / p
+        else:
+            return 0
 
     @property
     def roubo(self):
@@ -132,6 +147,15 @@ class Atleta(models.Model):
             if card.defesas is not None:
                 defesa += card.defesas
         return defesa
+
+    @property
+    def media_defesa(self):
+        d = self.defesa
+        p = JogoAtleta.objects.filter(atleta=self).count()
+        if d > 0:
+            return d / p
+        else:
+            return 0
 
     @property
     def jogos_realizados(self):

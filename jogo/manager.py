@@ -23,7 +23,6 @@ class AtletaManager(models.Manager):
 
     def top_3_jogadores(self):
         jogadores = self.all()
-
         artilheiros = {}
         passadores = {}
         ladroes = {}
@@ -78,8 +77,6 @@ class AtletaManager(models.Manager):
                 dicionario[jogador] = jogador.taxa_presente
         lista = sorted(dicionario, key=dicionario.__getitem__, reverse=True)
         return lista
-
-
 
 
 class JogoManager(models.Manager):
@@ -156,4 +153,7 @@ class JogoManager(models.Manager):
                 pts += 0
             else:
                 pts += 1
-        return round( ((pts/possiveis) * 100), 2)
+        if pts > 0:
+            return round(((pts/possiveis) * 100), 2)
+        else:
+            return 0
