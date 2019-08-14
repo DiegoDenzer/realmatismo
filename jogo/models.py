@@ -99,7 +99,7 @@ class Atleta(models.Model):
         g = self.gols
         p = JogoAtleta.objects.filter(atleta=self).count()
         if g > 0:
-            return g/p
+            return round(g/p, 2)
         else:
             return 0
 
@@ -126,7 +126,7 @@ class Atleta(models.Model):
         a = self.assistencia
         p = JogoAtleta.objects.filter(atleta=self).count()
         if a > 0:
-            return a / p
+            return round(a / p, 2)
         else:
             return 0
 
@@ -153,7 +153,7 @@ class Atleta(models.Model):
         d = self.defesa
         p = JogoAtleta.objects.filter(atleta=self).count()
         if d > 0:
-            return d / p
+            return round(d / p, 2)
         else:
             return 0
 
