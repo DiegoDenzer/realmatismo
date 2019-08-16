@@ -1,69 +1,94 @@
 {% extends 'base.html' %}
 {% block title %}{{ atleta.nome }}|Realmatismo Fc {% endblock %}
 {% block main %}
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title center">Perfil Atleta
-                        <hr class="deep-orange"/>
-                    </span>
 
-                    <div class="row">
-                        <div class="col s4">
-                            <img src="../media/{{atleta.imagem}}" alt=""  style="height: 100%; width: 100%" />
-                        </div>
-                        <div class="col s8">
-                            Nome: {{ atleta.nome }}
+     <div class="row" style="margin-top: 20px">
+    <!-- User Profile Feed -->
+        <div class="col s12 m4 l4 user-section-negative-margin">
+          <div class="row" style="color: #5a5a5a">
+            <div class="col s12 center-align">
+              <img class="responsive-img circle z-depth-5" width="200"
+                   src="../media/{{atleta.imagem}}" alt="">
+            </div>
+              <!-- src="../media/{{atleta.imagem}}" -->
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m5 l8">
+                <div class="card-panel orange">
+                    <span style="font-size: 17px" class="white-text">Nome: {{ atleta.nome }}</span>
+                <br/>
+                    <span style="font-size: 17px"  class="white-text"> Sobrenome: {{ atleta.sobrenome }} </span>
+                            <br />
+                    <span style="font-size: 17px"  class="white-text"> Apelido: {{ atleta.apelido }} </span>
+                            <br />
+                    <span style="font-size: 17px"  class="white-text"> Idade : {{ atleta.idade }} </span>
                             <br>
-                            Sobrenome: {{ atleta.sobrenome }}
-                            <br>
-                            Apelido: {{ atleta.apelido }}
-                            <br>
-                            Idade : {{ atleta.idade }}
-                            <br>
-                            Número: {% if atleta.numero_camisa is None %}
+                    <span style="font-size: 17px"  class="white-text">Número: {% if atleta.numero_camisa is None %} </span>
                                         Sem número
                                     {% else %}
                                          {{ atleta.numero_camisa }}
                                     {% endif %}
-                            <br>
-                            Status: {{ atleta.status }}
-                        </div>
-                    </div>
+                        <br />
+                    <span style="font-size: 17px"  class="white-text"> Status: {{ atleta.status }} </span>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title center">Dados Atleta
-                        <hr class="deep-orange"/>
-                    </span>
+     <div class="row" style="margin-top: -50px">
 
-                    <ul class="collection">
-                        <li class="collection-item"><div>Jogos Disputados<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.jogos_realizados }}</a></div></li>
-                        <li class="collection-item"><div>Gols<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.gols }} {{ atleta.media_gols }}</a></div></li>
-                        <li class="collection-item"><div>Assistências<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.assistencia }}</a></div></li>
-                        <li class="collection-item"><div>Defesas<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.defesa }}</a></div></li>
-                        <li class="collection-item"><div>Minutos<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.minutos }}</a></div></li>
-                        <li class="collection-item"><div>Aproveitamento Individual<a href="#" style="color: black;text-decoration: none;" class="secondary-content">{{ atleta.taxa_presente }}</a></div></li>
-                     </ul>
+        <h4 class="col s12 center-align">Dados</h4>
 
-                </div>
+        <div class="col s6">
+            <div class="card-panel blue accent-1 center-align z-depth-2">
+                <span style="font-size: 16px; font-weight: bold">Jogos</span><br>
+                <span style="font-size: 18px">{{ atleta.jogos_realizados }}</span>
             </div>
         </div>
-    </div>
+
+        <div class="col s6">
+          <div class="card-panel blue accent-1 center-align z-depth-2">
+                <span style="font-size: 16px; font-weight: bold">Gols/Média</span><br>
+                <span style="font-size: 18px">{{ atleta.gols }} / {{ atleta.media_gols }}</span>
+            </div>
+        </div>
+
+        <div class="col s6">
+            <div class="card-panel blue accent-1 center-align z-depth-2">
+                <span style="font-size: 16px; font-weight: bold">Assist./Média</span><br>
+                <span style="font-size: 18px">{{ atleta.assistencia }} / {{ atleta.media_assistencia }}</span>
+            </div>
+        </div>
+
+        <div class="col s6">
+            <div class="card-panel blue accent-1 center-align z-depth-2">
+                <span style="font-size: 16px; font-weight: bold">Defesas/Média</span><br>
+                <span style="font-size: 18px">{{ atleta.defesa }} / {{ atleta.media_defesa }}</span>
+            </div>
+        </div>
+
+        <div class="col s6">
+            <div class="card-panel blue accent-1 center-align z-depth-2">
+                <span style="font-size: 16px; font-weight: bold">Minutos</span><br>
+                <span style="font-size: 18px">{{ atleta.minutos}}</span>
+            </div>
+        </div>
+
+         <div class="col s6">
+            <div class="card-panel blue accent-1 center-align z-depth-2">
+                <span style="font-size: 16px; font-weight: bold">Aproveitamento</span><br>
+                <span style="font-size: 18px">{{ atleta.taxa_presente }}</span>
+            </div>
+        </div>
+     </div>
 
     <div class="row">
         <div class="col s12 m12 l12">
             <div class="card">
                 <div class="card-content">
                     <span class="card-title center">Conquistas
-                        <hr class="deep-orange"/>
                     </span>
 
                     <ul class="collection">
