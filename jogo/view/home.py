@@ -34,7 +34,7 @@ class Home(View):
             'noticias': noticias[:1],
             'performace': Jogo.objects.perfomace(),
             'teste': Jogo.objects.perfomace2(),
-            'seguencia': Jogo.objects.sequencia()
+            'sequencia': Jogo.objects.sequencia()
         }
 
         return render(self.request, 'jogo/home.html', data)
