@@ -132,6 +132,7 @@ class JogoManager(models.Manager):
         for jogo in jogos_anteriores:
             if jogo.placar_adversario > jogo.placar_real:
                 data = jogo.data
+                break
         return self.filter(data__gt=data).count()
 
     def perfomace(self):
