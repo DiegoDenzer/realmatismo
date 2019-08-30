@@ -133,7 +133,7 @@ class JogoManager(models.Manager):
             if jogo.placar_adversario > jogo.placar_real:
                 data = jogo.data
                 break
-        return self.filter(data__gt=data).count()
+        return self.filter(data__gt=data, placar_real__isnull=False, placar_adversario__isnull=False).count()
 
     def perfomace(self):
         now = datetime.now()
