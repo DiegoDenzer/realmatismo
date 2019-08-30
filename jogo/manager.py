@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.db import models
-from django.db.models import Sum, Min, Max
+from django.db.models import Sum, Min, Max, Subquery
 
 
 class AtletaManager(models.Manager):
@@ -123,6 +123,16 @@ class JogoManager(models.Manager):
             'empate': empate
         }
         return dados
+
+    def sequencia(self):
+        data = None
+        now = datetime.now()
+        jogos_anteriores = self.order_by('-data') \
+            .filter(data__lt=now, placar_real__isnull=False, placar_adversario__isnull=False)
+        for jogo in jogos_anteriores:
+            if jogo.placar_adversario > jogo.placar_real:
+                data = jogo.data
+        return self.filter(data__gt=data).count()
 
     def perfomace(self):
         now = datetime.now()

@@ -33,7 +33,8 @@ class Home(View):
             'proximos_jogos': proximos_jogos[:1],
             'noticias': noticias[:1],
             'performace': Jogo.objects.perfomace(),
-            'teste': Jogo.objects.perfomace2()
+            'teste': Jogo.objects.perfomace2(),
+            'seguencia': Jogo.objects.sequencia()
         }
 
         return render(self.request, 'jogo/home.html', data)
