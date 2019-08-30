@@ -26,7 +26,7 @@ class Home(View):
                     string = f'No Último confronto entre as duas equipes empate pelo placar de: {te[1].placar_real} x {te[1].placar_adversario}'
             else:
                 string= 'Primeiro jogo entre as duas equipes'
-
+        print(Jogo.objects.sequencia())
         data ={
             'detalhes_ultimo': string,
             'jogos_anteriores': jogos_anteriores[:1],
