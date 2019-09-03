@@ -6,7 +6,7 @@
 
      <div class="col s12 m6 l6">
         <div class="card hoverable z-depth-3">
-            <div class="card-content">
+            <div class="card-content" style="background: linear-gradient(4deg, #f3f1ee 90%, #ff9800 100%);">
                  <span class="card-title center">Desempenho
                      <hr class="deep-orange">
                  </span>
@@ -32,7 +32,7 @@
 
     <div class="col s12 m6 l6">
         <div class="card hoverable z-depth-3">
-            <div class="card-content">
+            <div class="card-content"  style="background: linear-gradient(4deg, #f3f1ee 90%, #ff9800 100%);">
                  <span class="card-title center">Últimos Resultados
                      <hr class="deep-orange">
                  </span>
@@ -52,12 +52,12 @@
 
     <div class="col s12 m6 l6">
         <div class="card hoverable z-depth-3">
-            <div class="card-content">
+            <div class="card-content" style="background: linear-gradient(4deg, #f3f1ee 90%, #ff9800 100%);">
                 <span class="card-title">Próximo Jogo</span>
                     {% if proximos_jogos.count > 0 %}
                         <ul class="collection" style="border: none">
                         {% for jogo in proximos_jogos %}
-                            <li class="collection-item avatar">
+                            <li class="collection-item avatar" style="background: linear-gradient(45deg, #f3f1ee 100%, #ff9800 0%);">
                                 <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
                               <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="img-adv" class="circle">
                               <span class="title">{{ jogo.adversario.nome }}</span>
@@ -78,13 +78,13 @@
     </div>
 
     <div class="col s12 m6 l6">
-        <div class="card hoverable z-depth-3">
-            <div class="card-content">
+        <div class="card hoverable z-depth-3" >
+            <div class="card-content" style="background: linear-gradient(4deg, #f3f1ee 90%, #ff9800 100%);">
                 <span class="card-title">Último Jogo</span>
                     {% if jogos_anteriores.count > 0 %}
                         <ul class="collection" style="border: none">
                         {% for jogo in jogos_anteriores %}
-                            <li class="collection-item avatar">
+                            <li class="collection-item avatar" style="background: linear-gradient(45deg, #f3f1ee 100%, #ff9800 0%);">
                                 <a href="{% url 'jogo' jogo.pk %}" style="text-decoration: none;color: black">
                                   <img src="media/{{ jogo.adversario.escudo_adversario }}" alt="" class="circle">
                                   <span class="title">{{ jogo.adversario.nome }}</span>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="col s12 m6 l6">
-        <div class="card hoverable z-depth-3">
+        <div class="card hoverable z-depth-3" style="background: linear-gradient(4deg, #f3f1ee 90%, #ff9800 100%);">
             <div class="card-content">
                 <span class="card-title">Notícias</span>
                     {% if noticias.count > 0 %}
