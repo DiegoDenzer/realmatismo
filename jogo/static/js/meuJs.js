@@ -1,7 +1,7 @@
-$(document).ready(function(){
-$('.sidenav').sidenav();
-});
-
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, {edge:'left'});
+  });
 $(document).ready(function(){
     $('.collapsible').collapsible();
   });
@@ -10,9 +10,3 @@ $(document).ready(function(){
     $('.materialboxed').materialbox();
 });
 
-
-var instance = M.Materialbox.getInstance(elem);
-  instance.open();
-  instance.close();
-
-M.toast({html: 'Cadastro Realizado com Sucesso!!!'})
