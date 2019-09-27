@@ -5,9 +5,9 @@ from jogo.view.contato import ContatoView
 from jogo.view.estatisticas import Estatisticas, Artilheiros, Assistencias, Defesas, Desempenho, Minutos, \
     JogosDisputados
 from jogo.view.home import Home
-from jogo.view.jogo import JogoDetail, ListaJogos
+from jogo.view.jogo import JogoDetail, ListaJogos, JogosApi
 from jogo.view.time import TimeList
-from jogo.views import  ListaNoticias, NoticiaDetail, Galeria,  AdversariosView
+from jogo.views import ListaNoticias, NoticiaDetail, Galeria,  AdversariosView
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -32,5 +32,8 @@ urlpatterns = [
 
     path('contato', ContatoView.as_view(), name='contato'),
 
+
+    #API
+    path('api-jogo', JogosApi.as_view(), name='api-jogo')
 
 ]

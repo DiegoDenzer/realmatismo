@@ -1,10 +1,16 @@
 from django.db.models.signals import post_save
+from django.utils.html import format_html
 
 __author__ = 'Diego Denzer'
 from django.db import models, connection
 from datetime import date
 
 from jogo.manager import JogoManager, AtletaManager
+
+TIPO_FATURA = (
+    ('R', 'RECEITA'),
+    ('D', 'DESPESA'),
+)
 
 STATUS = (
     ('1', 'Elenco Principal'),
@@ -20,6 +26,14 @@ TIPO_CONQUISTA = (
     ('3', 'Jogos'),
     ('4', 'Defesas'),
     ('5', 'Hat-Trick'),
+)
+
+CATEGORIA = (
+    ('1', 'Mensalidade'),
+    ('2', 'Viagem'),
+    ('3', 'Material Esportivo'),
+    ('4', 'Churrasco'),
+    ('5', 'Outros'),
 )
 
 
@@ -160,6 +174,15 @@ class Atleta(models.Model):
     @property
     def jogos_realizados(self):
         return JogoAtleta.objects.filter(atleta=self).count()
+
+    @property
+    def hat_trick(self):
+        hat = 0
+        jogos = JogoAtleta.objects.filter(atleta=self)
+        for j in jogos:
+            if j.gols is not None and j.gols >= 3:
+                hat += 1
+        return hat
 
     class Meta:
         db_table = 'atleta'
@@ -324,6 +347,32 @@ class ConquistaAtleta(models.Model):
     def __str__(self):
         return self.conquista.nome
 
+
+class Fatura(models.Model):
+    ''' Modelo para as faturas '''
+    descricao = models.CharField(max_length=255)
+    data_inclusao = models.DateTimeField(auto_now_add=True, editable=False)
+    data_alteracao = models.DateTimeField(auto_now=True, editable=False)
+    data_vencimento = models.DateTimeField(null=False)
+    data_pagamento = models.DateTimeField(null=True)
+    tipo_fatura = models.CharField(max_length=2, choices=TIPO_FATURA)
+    valor_fatura = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    valor_pago = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0)
+    categoria = models.CharField(max_length=2, choices=CATEGORIA, null=True, blank=True)
+
+    atleta = models.ForeignKey(Atleta, on_delete=models.CASCADE, null=True, blank=True )
+
+    class Meta:
+        ordering = ('-data_vencimento',)
+        verbose_name = 'Fatura'
+        verbose_name_plural = 'Faturas'
+
+    def status(self):
+        if self.valor_fatura <= self.valor_pago:
+            return format_html('<b><span style="color: green;">Pago</span></b>')
+        return format_html('<b><span style="color: red;">Aberto</span></b>')
+
+
 def cria_objeto(conquista, jogador):
     ConquistaAtleta.objects.create(conquista=conquista, atleta=jogador)
 
@@ -336,6 +385,8 @@ def validar_conquista(conquista, jogador):
     elif conquista.tipo == '3' and jogador.jogos_realizados >= conquista.valor:
         cria_objeto(conquista, jogador)
     elif conquista.tipo == '4' and jogador.defesa >= conquista.valor:
+        cria_objeto(conquista, jogador)
+    elif conquista.tipo == '5' and jogador.hat_trick >= conquista.valor:
         cria_objeto(conquista, jogador)
 
 
@@ -354,3 +405,5 @@ def cria_conquista(sender, instance, created, **kwargs):
                     validar_conquista(conquista, jogador.atleta)
 
 post_save.connect(cria_conquista, sender=Jogo)
+
+

@@ -9,7 +9,10 @@ SECRET_KEY = '48-o*u%p7q%5y%u+2ys)p+n!0)&pe!h^(#87&7#-%%z7ram+zw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'realmatismofc.pythonanywhere.com']
+# ALLOWED_HOSTS = ['10.5.70.24', '127.0.0.1', 'realmatismofc.pythonanywhere.com', '*']
+
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -21,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'jogo'
 ]
 
@@ -33,6 +37,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 ROOT_URLCONF = 'realmatismo.urls'
 
@@ -145,9 +154,3 @@ JET_THEMES = [
     }
 ]
 JET_SIDE_MENU_COMPACT = True
-
-EMAIL_HOST= 'smtp.gmail.com'
-EMAIL_PORT= '587'
-EMAIL_HOST_USER= config('USER_EMAIL')
-EMAIL_HOST_PASSWORD= config('PASSWORD_EMAIL')
-EMAIL_USE_TLS = True
