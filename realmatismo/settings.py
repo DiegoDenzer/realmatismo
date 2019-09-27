@@ -9,7 +9,7 @@ SECRET_KEY = '48-o*u%p7q%5y%u+2ys)p+n!0)&pe!h^(#87&7#-%%z7ram+zw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['10.5.70.24', '127.0.0.1', 'realmatismofc.pythonanywhere.com', '*']
+ALLOWED_HOSTS = ['10.5.70.24', '127.0.0.1', 'realmatismofc.pythonanywhere.com', '*']
 
 ALLOWED_HOSTS = ['*']
 
