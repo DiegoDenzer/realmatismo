@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.db.models import Sum, Min, Max, Subquery
+from django.db.models.expressions import RawSQL
 
 
 class AtletaManager(models.Manager):
@@ -20,8 +21,15 @@ class AtletaManager(models.Manager):
             media_idade += jogador.idade
         return media_idade
 
+    def home(self):
+        retorno = {}
+        dicionario = self.top_3_jogadores(1)
+        for item in dicionario.items():
+            print(item)
+            retorno[item[0]] = item[1]
+            
+    def top_3_jogadores(self, qtd):
 
-    def top_3_jogadores(self):
         jogadores = self.all()
         artilheiros = {}
         passadores = {}
@@ -48,15 +56,15 @@ class AtletaManager(models.Manager):
         lista_minutos = sorted(minutos, key=minutos.__getitem__, reverse=True)
         lista_aproveitamento = sorted(aproveitamento, key=aproveitamento.__getitem__, reverse=True)
 
-        return  {
+        return {
             # Dados Atletas...
-            'artilharia': lista_artilheiros[:3],
-            'passadores': lista_passsadores[:3],
-            'ladroes': lista_ladroes[:3],
-            'defesas': lista_defesas[:3],
-            'jogos_jogados': lista_jogos[:3],
-            'minutos': lista_minutos[:3],
-            'aproveitamento': lista_aproveitamento[:3],
+            'artilharia': lista_artilheiros[:qtd],
+            'passadores': lista_passsadores[:qtd],
+            'ladroes': lista_ladroes[:qtd],
+            'defesas': lista_defesas[:qtd],
+            'jogos_jogados': lista_jogos[:qtd],
+            'minutos': lista_minutos[:qtd],
+            'aproveitamento': lista_aproveitamento[:qtd],
         }
 
     def lista_por_categorias(self, tipo):
@@ -96,7 +104,6 @@ class JogoManager(models.Manager):
 
     def maior_vitoria(self):
         jogos_vitoria = self.raw('''SELECT *,max(placar_real -placar_adversario) as maior from jogo''')
-
         for i in jogos_vitoria:
             maior_vitoria = f'{i.placar_real} X {i.placar_adversario} - {i.adversario}'
         return maior_vitoria

@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from django.views.generic import DetailView, ListView
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import generics, viewsets
+
 
 from jogo.models import Jogo
 from jogo.serializer import JogoSerializer
@@ -20,10 +22,15 @@ class ListaJogos(ListView):
     template_name = 'jogo/jogos.html'
 
 
-class JogosApi(APIView):
+class ProximosJogosAPI(viewsets.ModelViewSet):
 
-    def get(self, request, format=None):
-        jogos = Jogo.objects.all()
-        serializer = JogoSerializer(jogos, many=True)
-        return Response(serializer.data)
+    queryset = Jogo.objects.order_by('-data').filter(data__lt= datetime.now())
+    serializer_class = JogoSerializer
+
+
+class JogosAnterioresAPI(generics.GenericAPIView):
+
+    queryset = Jogo.objects.order_by('data').filter(data__lt=datetime.now())
+    serializer_class = JogoSerializer
+
 

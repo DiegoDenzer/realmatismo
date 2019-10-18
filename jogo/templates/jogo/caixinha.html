@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Caixinha Real|Realmatismo Fc {% endblock %}
+{% block main %}
+
+     <table>
+        <thead>
+          <tr>
+              <th>Status</th>
+              <th>Descrição</th>
+              <th>Valor Pagar</th>
+              <th>Valor Pago</th>
+          </tr>
+        </thead>
+         <tbody>
+    {% for fatura in faturas %}
+        <tr>
+            <td>{{ fatura.status }}</td>
+            <td> {{ fatura.descricao }} </td>
+            <td>{{ fatura.valor_fatura }}</td>
+            <td> {{ fatura.valor_pago }}</td>
+          </tr>
+    {% endfor %}
+         </tbody>
+     </table>
+
+
+{% endblock %}

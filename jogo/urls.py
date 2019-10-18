@@ -1,13 +1,20 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
+from jogo import views
 from jogo.view.atletas import ListaAtletas, AtletaDetail
+from jogo.view.caixinha import CaixinhaView
 from jogo.view.contato import ContatoView
 from jogo.view.estatisticas import Estatisticas, Artilheiros, Assistencias, Defesas, Desempenho, Minutos, \
-    JogosDisputados
+    JogosDisputados, HomeEstatisticasAPI
 from jogo.view.home import Home
-from jogo.view.jogo import JogoDetail, ListaJogos, JogosApi
+from jogo.view.jogo import JogoDetail, ListaJogos, ProximosJogosAPI, JogosAnterioresAPI
 from jogo.view.time import TimeList
 from jogo.views import ListaNoticias, NoticiaDetail, Galeria,  AdversariosView
+
+
+router = routers.DefaultRouter()
+router.register(r'proximos-jogos', ProximosJogosAPI)
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
@@ -32,8 +39,11 @@ urlpatterns = [
 
     path('contato', ContatoView.as_view(), name='contato'),
 
+    path('caixa', CaixinhaView.as_view(), name='contato'),
 
     #API
-    path('api-jogo', JogosApi.as_view(), name='api-jogo')
+    path('api/', include(router.urls)),
+    path('api/est-home', HomeEstatisticasAPI.as_view(), name="estatisticas-home"),
+
 
 ]

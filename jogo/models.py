@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.utils.html import format_html
 
@@ -101,12 +102,8 @@ class Atleta(models.Model):
 
     @property
     def gols(self):
-        gols = 0
-        cards = JogoAtleta.objects.filter(atleta=self)
-        for card in cards:
-            if card.gols is not None:
-                gols = gols + card.gols
-        return gols
+        gols = JogoAtleta.objects.filter(atleta=self).aggregate(Sum('gols')).get('gols__sum')
+        return 0 if gols is None else gols
 
     @property
     def media_gols(self):
@@ -119,21 +116,13 @@ class Atleta(models.Model):
 
     @property
     def minutos(self):
-        minutos = 0
-        cards = JogoAtleta.objects.filter(atleta=self)
-        for card in cards:
-            if card.minutos is not None:
-                minutos = minutos + card.minutos
-        return minutos
+        minutos = JogoAtleta.objects.filter(atleta=self).aggregate(Sum('minutos')).get('minutos__sum')
+        return 0 if minutos is None else minutos
 
     @property
     def assistencia(self):
-        assistencia = 0
-        cards = JogoAtleta.objects.filter(atleta=self)
-        for card in cards:
-            if card.asssitencia is not None:
-                assistencia = assistencia + card.asssitencia
-        return assistencia
+        assistencia = JogoAtleta.objects.filter(atleta=self).aggregate(Sum('asssitencia')).get('asssitencia__sum')
+        return 0 if assistencia is None else assistencia
 
     @property
     def media_assistencia(self):
@@ -155,12 +144,8 @@ class Atleta(models.Model):
 
     @property
     def defesa(self):
-        defesa = 0
-        cards = JogoAtleta.objects.filter(atleta=self)
-        for card in cards:
-            if card.defesas is not None:
-                defesa += card.defesas
-        return defesa
+        defesa = JogoAtleta.objects.filter(atleta=self).aggregate(Sum('defesas')).get('defesas__sum')
+        return 0 if defesa is None else defesa
 
     @property
     def media_defesa(self):
@@ -177,11 +162,7 @@ class Atleta(models.Model):
 
     @property
     def hat_trick(self):
-        hat = 0
-        jogos = JogoAtleta.objects.filter(atleta=self)
-        for j in jogos:
-            if j.gols is not None and j.gols >= 3:
-                hat += 1
+        hat = JogoAtleta.objects.filter(atleta=1, gols__gte=3).count()
         return hat
 
     class Meta:

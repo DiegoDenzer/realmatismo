@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.views import View
+from rest_framework.response import Response
+from rest_framework.utils import json
+from rest_framework.views import APIView
 
 from jogo.models import Atleta
 
 
 class Estatisticas(View):
     template = 'jogo/estatistica.html'
+
     def get(self, *args, **kwargs):
-        return render(self.request, self.template, Atleta.objects.top_3_jogadores())
+        return render(self.request, self.template, Atleta.objects.top_3_jogadores(3))
 
 
 class Artilheiros(View):
@@ -26,18 +30,21 @@ class Assistencias(View):
 
 class Desempenho(View):
     template = 'jogo/desempenho.html'
+
     def get(self, request):
         return render(request, self.template , {'lista': Atleta.objects.lista_por_categorias('desempenho')})
 
 
 class Defesas(View):
     template = 'jogo/defesas.html'
+
     def get(self, *args, **kwargs):
         return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('defesas')})
 
 
 class JogosDisputados(View):
     template = 'jogo/jogos-disputados.html'
+
     def get(self, *args, **kwargs):
         return render(self.request, self.template, {'lista': Atleta.objects.lista_por_categorias('jogos-disputados')})
 
@@ -52,3 +59,10 @@ class Minutos(View):
             dic[jogador] = jogador.minutos
         lista = sorted(dic, key=dic.__getitem__, reverse=True)
         return render(self.request, self.template, {'lista': lista})
+
+
+class HomeEstatisticasAPI(APIView):
+
+    def get(self, request):
+
+        return Response(Atleta.objects.home())
