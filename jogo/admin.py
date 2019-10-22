@@ -15,20 +15,20 @@ class ConquistaTabular(admin.TabularInline):
 
 @admin.register(Jogo)
 class JogoAdmin(admin.ModelAdmin):
-   inlines = (JogadorTabular,)
-   list_display = ['data', 'adversario', 'placar']
+    inlines = (JogadorTabular,)
+    list_display = ['data', 'adversario', 'placar']
 
-   def placar(self, obj):
-       if obj.placar_adversario is not None:
-           return f'{obj.placar_real} X {obj.placar_adversario}'
-       return 'Jogo não realizado'
+    def placar(self, obj):
+        if obj.placar_adversario is not None:
+            return f'{obj.placar_real} X {obj.placar_adversario}'
+        return 'Jogo não realizado'
 
-   placar.short_description = 'placar'
+    placar.short_description = 'placar'
 
 
 @admin.register(Atleta)
 class AtletaAdmin(admin.ModelAdmin):
-    list_filter = ('nome', )
+    list_filter = ('nome',)
     list_display = ['nome', 'status']
     inlines = inlines = (ConquistaTabular,)
 
@@ -58,8 +58,13 @@ class ConquistaAdmin(admin.ModelAdmin):
     pass
 
 
+def quitar_lote(modeladmin, request, queryset):
+    queryset.update(valor_pago=50.0)
+
+quitar_lote.short_description = "Quitar selecionadas"
+
 @admin.register(Fatura)
 class FaturaAdmin(admin.ModelAdmin):
     list_display = ('descricao', 'atleta', 'data_vencimento', 'valor_fatura', 'status')
     list_filter = ('descricao', 'categoria', 'tipo_fatura', 'atleta', 'valor_fatura')
-
+    actions = [quitar_lote]

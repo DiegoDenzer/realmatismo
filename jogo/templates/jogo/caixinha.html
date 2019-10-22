@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Caixinha Real|Realmatismo Fc {% endblock %}
 {% block main %}
+    Valor Receitas: {{ receita }} / Valor Despesas: {% if despesa is None %}
+    0
+    {% else %}
+    {{ despesa }}
 
+    {% endif %}
      <table>
         <thead>
           <tr>

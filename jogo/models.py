@@ -35,6 +35,7 @@ CATEGORIA = (
     ('3', 'Material Esportivo'),
     ('4', 'Churrasco'),
     ('5', 'Outros'),
+    ('6', 'Quadra')
 )
 
 

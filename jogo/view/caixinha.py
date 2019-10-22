@@ -1,18 +1,17 @@
+from django.db.models import Max, Sum
 from django.shortcuts import render
 from django.views import View
 
-from jogo.models import  Fatura
+from jogo.models import Fatura
 
 
 class CaixinhaView(View):
     template = 'jogo/caixinha.html'
 
-    def get(self, *args, **kwargs):
+    def get(self, request ,*args, **kwargs):
         fat = Fatura.objects.all()
-        valor_pago = 0
-        for f in fat:
-            if f.valor_pago is not None:
-                valor_pago += f.valor_pago
-        return render(self.request, self.template, {'valor': valor_pago, 'faturas': fat})
+        valor_receita = Fatura.objects.filter(tipo_fatura='R').aggregate(Sum('valor_pago')).get('valor_pago__sum')
+        valor_despesa = Fatura.objects.filter(tipo_fatura='D').aggregate(Sum('valor_pago')).get('valor_pago__sum')
+        return render(self.request, self.template, {'receita': valor_receita, 'faturas': fat, 'despesa': valor_despesa,})
 
 

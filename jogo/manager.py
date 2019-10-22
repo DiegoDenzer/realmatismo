@@ -27,7 +27,7 @@ class AtletaManager(models.Manager):
         for item in dicionario.items():
             print(item)
             retorno[item[0]] = item[1]
-            
+
     def top_3_jogadores(self, qtd):
 
         jogadores = self.all()
