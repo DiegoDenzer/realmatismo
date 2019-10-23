@@ -15,6 +15,7 @@ from jogo.views import ListaNoticias, NoticiaDetail, Galeria,  AdversariosView
 
 router = routers.DefaultRouter()
 router.register(r'proximos-jogos', ProximosJogosAPI)
+router.register(r'jogos-anteriores', JogosAnterioresAPI)
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),

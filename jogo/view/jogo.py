@@ -24,13 +24,13 @@ class ListaJogos(ListView):
 
 class ProximosJogosAPI(viewsets.ModelViewSet):
 
-    queryset = Jogo.objects.order_by('-data').filter(data__lt= datetime.now())
+    queryset = Jogo.objects.order_by('data').filter(data__gte=datetime.now())
     serializer_class = JogoSerializer
 
 
-class JogosAnterioresAPI(generics.GenericAPIView):
+class JogosAnterioresAPI(viewsets.ModelViewSet):
 
-    queryset = Jogo.objects.order_by('data').filter(data__lt=datetime.now())
+    queryset = Jogo.objects.order_by('-data').filter(data__lt=datetime.now())
     serializer_class = JogoSerializer
 
 

@@ -25,8 +25,14 @@ class AtletaManager(models.Manager):
         retorno = {}
         dicionario = self.top_3_jogadores(1)
         for item in dicionario.items():
-            print(item)
+            a = item[1].pop()
+
+            print(b.nome)
             retorno[item[0]] = item[1]
+
+        print(retorno)
+        return "Diego"
+
 
     def top_3_jogadores(self, qtd):
 
