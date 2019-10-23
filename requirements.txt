@@ -20,24 +20,17 @@ pycairo==1.16.2
 pycrypto==2.6.1
 pycups==1.9.73
 pycurl==7.43.0.1
-pygobject==3.26.1
 pyinotify==0.9.6
 PyJWT==1.7.1
 python-apt==1.6.4
 python-decouple==3.1
 python-distutils-extra==2.39
-python-xapp==1.6.0
-python-xlib==0.20
-python3-openid==3.1.0
 pytz==2019.1
 pyxdg==0.25
 requests==2.22.0
 requests-oauthlib==1.2.0
-requests-unixsocket==0.1.5
 six==1.12.0
 social-auth-app-django==3.1.0
 social-auth-core==3.2.0
 sqlparse==0.3.0
-system-service==0.3
-tinycss==0.4
 
