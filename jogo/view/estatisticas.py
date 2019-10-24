@@ -64,5 +64,4 @@ class Minutos(View):
 class HomeEstatisticasAPI(APIView):
 
     def get(self, request):
-
         return Response(Atleta.objects.home())

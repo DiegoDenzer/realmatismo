@@ -2,6 +2,7 @@ from datetime import datetime
 from django.db import models
 from django.db.models import Sum, Min, Max, Subquery
 from django.db.models.expressions import RawSQL
+from rest_framework.utils import json
 
 
 class AtletaManager(models.Manager):
@@ -21,17 +22,31 @@ class AtletaManager(models.Manager):
             media_idade += jogador.idade
         return media_idade
 
+
     def home(self):
-        retorno = {}
+        lista = []
+
         dicionario = self.top_3_jogadores(1)
         for item in dicionario.items():
+
             a = item[1].pop()
 
-            print(b.nome)
-            retorno[item[0]] = item[1]
+            dto = {
+                'tipo': item[0],
+                'nome': a.nome,
+                "atleta_id": a.id,
+            }
 
-        print(retorno)
-        return "Diego"
+            a = item[1].pop()
+            atleta = {
+                "id": a.id,
+                "nome": a.nome,
+                #"foto": a.imagem,
+                "gols": a.gols,
+                "assistencia": a.assistencia
+            }
+
+        return lista
 
 
     def top_3_jogadores(self, qtd):

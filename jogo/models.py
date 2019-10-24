@@ -355,6 +355,7 @@ class Fatura(models.Model):
         return format_html('<b><span style="color: red;">Aberto</span></b>')
 
 
+
 def cria_objeto(conquista, jogador):
     ConquistaAtleta.objects.create(conquista=conquista, atleta=jogador)
 
