@@ -8,7 +8,7 @@ from jogo.view.contato import ContatoView
 from jogo.view.estatisticas import Estatisticas, Artilheiros, Assistencias, Defesas, Desempenho, Minutos, \
     JogosDisputados, HomeEstatisticasAPI
 from jogo.view.home import Home
-from jogo.view.jogo import JogoDetail, ListaJogos, ProximosJogosAPI, JogosAnterioresAPI
+from jogo.view.jogo import JogoDetail, ListaJogos, ProximosJogosAPI, JogosAnterioresAPI, JogoAtletasAPI
 from jogo.view.time import TimeList
 from jogo.views import ListaNoticias, NoticiaDetail, Galeria,  AdversariosView
 
@@ -45,6 +45,6 @@ urlpatterns = [
     #API
     path('api/', include(router.urls)),
     path('api/est-home', HomeEstatisticasAPI.as_view(), name="estatisticas-home"),
-
+    path('api/jogo-atleta/<int:jogo>', JogoAtletasAPI.as_view(), name="jogo-atleta"),
 
 ]

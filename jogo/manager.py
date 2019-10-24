@@ -1,8 +1,23 @@
 from datetime import datetime
 from django.db import models
 from django.db.models import Sum, Min, Max, Subquery
-from django.db.models.expressions import RawSQL
-from rest_framework.utils import json
+
+
+class JogoAtletaManager(models.Manager):
+
+    def dto_atletas_jogo(self, jogo):
+        result = []
+        lista = self.filter(jogo=jogo)
+        for item in lista:
+            dto = {
+                "nome": item.atleta.nome,
+                "gols": item.gols,
+                "assistencias": item.asssitencia,
+                "defesas": item.defesas,
+                "minutos": item.minutos
+            }
+            result.append(dto)
+        return result
 
 
 class AtletaManager(models.Manager):
@@ -37,14 +52,7 @@ class AtletaManager(models.Manager):
                 "atleta_id": a.id,
             }
 
-            a = item[1].pop()
-            atleta = {
-                "id": a.id,
-                "nome": a.nome,
-                #"foto": a.imagem,
-                "gols": a.gols,
-                "assistencia": a.assistencia
-            }
+            lista.append(dto)
 
         return lista
 

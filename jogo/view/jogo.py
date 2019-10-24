@@ -2,9 +2,11 @@ from datetime import datetime
 
 from django.views.generic import DetailView, ListView
 from rest_framework import generics, viewsets
+from rest_framework.response import Response
+from rest_framework.utils import json
+from rest_framework.views import APIView
 
-
-from jogo.models import Jogo
+from jogo.models import Jogo, JogoAtleta
 from jogo.serializer import JogoSerializer
 
 
@@ -34,3 +36,10 @@ class JogosAnterioresAPI(viewsets.ModelViewSet):
     serializer_class = JogoSerializer
 
 
+class JogoAtletasAPI(APIView):
+
+    def get(self, request, jogo):
+        lista = JogoAtleta.objects.dto_atletas_jogo(jogo=jogo)
+
+        print(lista)
+        return Response(lista)

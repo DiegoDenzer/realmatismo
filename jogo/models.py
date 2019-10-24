@@ -6,7 +6,7 @@ __author__ = 'Diego Denzer'
 from django.db import models, connection
 from datetime import date
 
-from jogo.manager import JogoManager, AtletaManager
+from jogo.manager import JogoManager, AtletaManager, JogoAtletaManager
 
 TIPO_FATURA = (
     ('R', 'RECEITA'),
@@ -274,6 +274,8 @@ class JogoAtleta(models.Model):
     roubo_de_bola = models.IntegerField(null=True, blank=True)
     defesas = models.IntegerField(null=True, blank=True)
     minutos = models.IntegerField(null=True, blank=True)
+
+    objects = JogoAtletaManager()
 
     def __str__(self):
         return self.atleta.nome
