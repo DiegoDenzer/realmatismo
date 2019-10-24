@@ -13,6 +13,6 @@ class JogoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jogo
         depth = 1
-        fields = ('data', 'placar_real', 'placar_adversario', 'adversario', 'local', 'resumo')
+        fields = ('id', 'data', 'placar_real', 'placar_adversario', 'adversario', 'local', 'resumo')
 
 
