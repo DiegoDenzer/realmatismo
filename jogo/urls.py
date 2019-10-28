@@ -9,7 +9,7 @@ from jogo.view.estatisticas import Estatisticas, Artilheiros, Assistencias, Defe
     JogosDisputados, HomeEstatisticasAPI
 from jogo.view.home import Home
 from jogo.view.jogo import JogoDetail, ListaJogos, ProximosJogosAPI, JogosAnterioresAPI, JogoAtletasAPI
-from jogo.view.time import TimeList
+from jogo.view.time import TimeList, TimeDadosAPI
 from jogo.views import ListaNoticias, NoticiaDetail, Galeria,  AdversariosView
 
 
@@ -46,5 +46,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/est-home', HomeEstatisticasAPI.as_view(), name="estatisticas-home"),
     path('api/jogo-atleta/<int:jogo>', JogoAtletasAPI.as_view(), name="jogo-atleta"),
+    path('api/dados-time', TimeDadosAPI.as_view(), name="dados-time"),
 
 ]

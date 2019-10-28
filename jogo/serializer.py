@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from jogo.models import Jogo, Adversario
+from jogo.models import Jogo, Adversario, Atleta
 
 
 class AdversarioSerializer(serializers.ModelSerializer):
@@ -16,3 +16,7 @@ class JogoSerializer(serializers.ModelSerializer):
         fields = ('id', 'data', 'placar_real', 'placar_adversario', 'adversario', 'local', 'resumo')
 
 
+class AtletaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Atleta
+        fields = ('id', 'nome', 'gols')

@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models import Sum, Min, Max, Subquery
 
 
+
 class JogoAtletaManager(models.Manager):
 
     def dto_atletas_jogo(self, jogo):
@@ -119,11 +120,35 @@ class AtletaManager(models.Manager):
 class JogoManager(models.Manager):
     ''' Manager para concentrar logicas de negocio dos jogos '''
 
+    def dto_time(self):
+        dados_time = self.dados_do_time()
+        favor = self.gols_favor()
+        contra = self.gols_contra()
+        saldo = favor - contra
+
+        data = {
+            # Dados Time...
+            'gols_favor': favor,
+            'gols_contra': contra,
+            'vitoria': dados_time['vitoria'],
+            'derrota': dados_time['derrota'],
+            'empate': dados_time['empate'],
+            'total': dados_time['total'],
+            'saldo': saldo,
+            'media_gols': round(favor / dados_time['jogos'], 1),
+            'media_sofridos': round(contra / dados_time['jogos'], 1),
+            'maior_derrota': self.maior_derrota(),
+            'maior_vitoria':self.maior_vitoria(),
+            'performace': self.perfomace()
+        }
+
+        return data
+
     def gols_favor(self):
         return self.all().aggregate(Sum('placar_real'))['placar_real__sum']
 
     def gols_contra(self):
-        return  self.all().aggregate(Sum('placar_adversario'))['placar_adversario__sum']
+        return self.all().aggregate(Sum('placar_adversario'))['placar_adversario__sum']
 
     def maior_derrota(self):
         jogos_derrota = self.raw('''SELECT *,max(placar_adversario - placar_real) as maior from jogo''')
